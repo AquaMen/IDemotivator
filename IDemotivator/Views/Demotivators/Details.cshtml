@@ -1,0 +1,75 @@
+﻿@model IDemotivator.Demotivator
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Demotivator</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Url_Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Url_Img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Url_Img_Origin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Url_Img_Origin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Str1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Str1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Str2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Str2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
