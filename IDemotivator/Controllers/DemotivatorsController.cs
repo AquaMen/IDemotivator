@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace IDemotivator.Controllers
 {
+    [Authorize]
     public class DemotivatorsController : Controller
     {
         private Entities db = new Entities();
@@ -20,8 +21,9 @@ namespace IDemotivator.Controllers
         // GET: Demotivators
         public async Task<ActionResult> Index()
         {
-            var demotivators = db.Demotivators.Include(d => d.AspNetUser);
-            return View(await demotivators.ToListAsync());
+            string CurId = User.Identity.GetUserId();
+            var demotivators = await db.Demotivators.Where(d=>d.AspNetUserId==CurId).ToListAsync();
+            return View(demotivators);
         }
 
         // GET: Demotivators/Details/5
@@ -91,6 +93,8 @@ namespace IDemotivator.Controllers
         {
             if (ModelState.IsValid)
             {
+                demotivator.AspNetUserId = User.Identity.GetUserId();
+                demotivator.Date = DateTime.Now;
                 db.Entry(demotivator).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
