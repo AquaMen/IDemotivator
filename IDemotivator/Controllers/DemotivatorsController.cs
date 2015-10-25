@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IDemotivator;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace IDemotivator.Controllers
 {
@@ -53,7 +55,7 @@ namespace IDemotivator.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                demotivator.AspNetUserId = User.Identity.GetUserId();
                 demotivator.Date = DateTime.Now;
                 db.Demotivators.Add(demotivator);
                 db.SaveChanges();
