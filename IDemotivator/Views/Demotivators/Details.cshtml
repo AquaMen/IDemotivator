@@ -6,7 +6,18 @@
 }
 
 <h2>Details</h2>
-
+<style>
+    #canvas-container {
+            position: relative;
+            width: 900px;
+            height: 550px;
+            box-shadow: 0 0 5px 1px black;
+            margin: 10px auto;
+            border: 5px solid transparent;
+        }
+        #canvas-container.over {
+            border: 1px dashed #000000;
+</style>
 <div>
     <h4>Demotivator</h4>
     <hr />
@@ -17,59 +28,19 @@
 
         <dd>
             @Html.DisplayFor(model => model.Name)
+            @Html.EditorFor(model => model.Url_Img_Origin, new { htmlAttributes = new { @class = "form-control", id = "url2", type = "hidden"} })
+            @Html.EditorFor(model => model.Str1, new { htmlAttributes = new { @class = "form-control", id = "str11", type = "hidden"} })
+            @Html.EditorFor(model => model.Str2, new { htmlAttributes = new { @class = "form-control", id = "str22", type = "hidden"} })
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Url_Img)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Url_Img)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Url_Img_Origin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Url_Img_Origin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Str1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Str1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Str2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Str2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
-        </dd>
-
     </dl>
+    <div id="canvas-container">
+        <canvas id="canvas" width="900" height="550"></canvas>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/fabric.js"></script>
+<script src="~/Scripts/DemoDetail.js"></script>
