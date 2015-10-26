@@ -75,7 +75,12 @@
                 <input type="button" value="Preview" id="textin" class="btn btn-default" />
             </div>
         </div>
-        
+        <input type="file" name="upload" id="uploadFile" /><br />
+        <button id="submit">Загрузить</button>
+        <form id="fileUpload" action="@Url.Action("AddImage")" method="POST" enctype="multipart/form-data">
+            <input id="fileInput" type="file" />
+            <input type="button" value="Upload file" id="btnFileUpload" />
+        </form>
     </div>
 }
 
@@ -83,8 +88,31 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
 <script src="~/Scripts/fabric.js"></script>
 <script src="~/Scripts/DemoCreate.js"></script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+
+            $("#btnFileUpload").click(function() {
+                var formData = new FormData();
+                var file = document.getElementById("fileInput").files[0];
+                formData.append("fileInput", file);
+
+                $.ajax({
+                    url: "/Demotivators/Upload",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function() {
+                        alert("URA");
+                    }
+                });
+            });
+
+</script>
+
 }
