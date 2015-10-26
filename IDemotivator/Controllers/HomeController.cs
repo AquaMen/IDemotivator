@@ -1,16 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
+using System.Data.Entity;
+using System.Net;
+using IDemotivator;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using IDemotivator.Models;
+
 
 namespace IDemotivator.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private Entities db = new Entities();
+
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var demotivators = db.Demotivators.Include(s => s.AspNetUser);
+            return View(await demotivators.ToListAsync());
         }
 
         public ActionResult About()

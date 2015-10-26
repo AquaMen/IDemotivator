@@ -1,4 +1,15 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model IEnumerable<IDemotivator.Demotivator>
 
+    @{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <h2>@ViewBag.Title.</h2>
+    <dl class="dl-horizontal">
+
+        @foreach (var item in Model) {
+        <li>
+            @Html.ActionLink(item.Name, "Details", "Demotivators", new { id=item.Id }, null)
+        </li>
+        }
+</dl>

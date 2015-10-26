@@ -27,6 +27,7 @@ namespace IDemotivator.Controllers
         }
 
         // GET: Demotivators/Details/5
+        [AllowAnonymous]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,6 +41,8 @@ namespace IDemotivator.Controllers
             }
             return View(demotivator);
         }
+
+
 
         // GET: Demotivators/Create
         public ActionResult Create()
