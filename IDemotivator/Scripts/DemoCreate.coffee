@@ -33,4 +33,8 @@ document.getElementById('textin').onclick = ->
       canvas.backgroundImage.width = canvas.getWidth() - 10
       canvas.backgroundImage.height = canvas.getHeight() - 10
       canvas.renderAll()
+document.getElementById('create').onclick = ->
+  JSONstring = JSON.stringify(canvas)
+  JSONstring = JSONstring.replace("data:image/png;base64,", "")
+  document.getElementById("json").value = JSONstring
       

@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using IDemotivator;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace IDemotivator.Controllers
 {
@@ -22,7 +24,7 @@ namespace IDemotivator.Controllers
         public async Task<ActionResult> Index()
         {
             string CurId = User.Identity.GetUserId();
-            var demotivators = await db.Demotivators.Where(d=>d.AspNetUserId==CurId).ToListAsync();
+            var demotivators = await db.Demotivators.Where(d => d.AspNetUserId == CurId).ToListAsync();
             return View(demotivators);
         }
 
@@ -130,6 +132,43 @@ namespace IDemotivator.Controllers
             db.Demotivators.Remove(demotivator);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public JsonResult Upload()
+        {
+            JsonResult trem = new JsonResult();
+            ImageUploadResult uploadResult = new ImageUploadResult();
+            foreach (string file in Request.Files)
+            {
+                var upload = Request.Files[file];
+                if (upload != null)
+                {
+                    Account account = new Account(
+                        "aniknaemm",
+                        "173434464182424",
+                        "p3LleRLwWAxpm9yU3CHT63qKp_E");
+
+                    CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+                    // получаем имя файла
+                    string fileName = System.IO.Path.GetFileName(upload.FileName);
+                    // сохраняем файл в папку Files в проекте
+                    upload.SaveAs(Server.MapPath("~/" + fileName));
+
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(@"D:\Itransition\GitInt\IDemotivator\IDemotivator\" + fileName),
+                        PublicId = User.Identity.Name + fileName,
+                        Tags = "special, for_homepage"
+                    };
+
+                    uploadResult = cloudinary.Upload(uploadParams);
+                    System.IO.File.Delete(@"D:\Itransition\GitInt\IDemotivator\IDemotivator\" + fileName);
+                }
+
+            }
+
+            return Json(uploadResult, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
