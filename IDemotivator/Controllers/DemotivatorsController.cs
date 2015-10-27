@@ -154,16 +154,17 @@ namespace IDemotivator.Controllers
                     string fileName = System.IO.Path.GetFileName(upload.FileName);
                     // сохраняем файл в папку Files в проекте
                     upload.SaveAs(Server.MapPath("~/" + fileName));
-
+                   
                     var uploadParams = new ImageUploadParams()
                     {
-                        File = new FileDescription(@"D:\Itransition\GitInt\IDemotivator\IDemotivator\" + fileName),
+
+                        File = new FileDescription(Server.MapPath("~/" + fileName)),
                         PublicId = User.Identity.Name + fileName,
                         Tags = "special, for_homepage"
                     };
-
+                   
                     uploadResult = cloudinary.Upload(uploadParams);
-                    System.IO.File.Delete(@"D:\Itransition\GitInt\IDemotivator\IDemotivator\" + fileName);
+                    System.IO.File.Delete(Server.MapPath("~/" + fileName));
                 }
 
             }
