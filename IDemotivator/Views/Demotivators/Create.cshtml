@@ -83,6 +83,7 @@
         </form>
     </div>
 }
+<img id="ir">
 
 
 <div>
@@ -107,10 +108,13 @@
                     data: formData,
                     contentType: false,
                     processData: false,
-                    success: function() {
-                        alert("URA");
+                    success: function (data) {
+                       
+                         document.getElementById("ir").setAttribute("src",data.Uri )
+                        alert(data.Uri);
                     }
                 });
+
             });
 
 </script>
