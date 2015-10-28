@@ -34,6 +34,13 @@
     <div id="canvas-container">
         <canvas id="canvas" width="900" height="550"></canvas>
     </div>
+    <div class="tr" style="background-color:#f1f1f1;">
+        <div class="td0">Please rate</div>
+        <div class="td">@Html.Partial("_VoteNow", Model.Id.ToString())</div>
+        @if (Model.Rate is string){
+        <div class="td" id="ShowRe">@Html.Partial("_VoteShow", Model.Rate)</div>
+        }
+    </div>
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")

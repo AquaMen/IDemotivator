@@ -12,18 +12,13 @@ namespace IDemotivator
     using System;
     using System.Collections.Generic;
     
-    public partial class tag
+    public partial class tag_to_dem
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tag()
-        {
-            this.tag_to_dem = new HashSet<tag_to_dem>();
-        }
-    
+        public int tagId { get; set; }
+        public int DemotivatorId { get; set; }
         public int Id { get; set; }
-        public string Name { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tag_to_dem> tag_to_dem { get; set; }
+        public virtual tag tag { get; set; }
+        public virtual Demotivator Demotivator { get; set; }
     }
 }

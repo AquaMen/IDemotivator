@@ -14,6 +14,13 @@ namespace IDemotivator
     
     public partial class Demotivator
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Demotivator()
+        {
+            this.tag_to_dem = new HashSet<tag_to_dem>();
+            this.rates = new HashSet<rate>();
+        }
+    
         public int Id { get; set; }
         public string AspNetUserId { get; set; }
         public string Name { get; set; }
@@ -22,7 +29,12 @@ namespace IDemotivator
         public string Url_Img_Origin { get; set; }
         public string Str1 { get; set; }
         public string Str2 { get; set; }
+        public string Rate { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tag_to_dem> tag_to_dem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<rate> rates { get; set; }
     }
 }

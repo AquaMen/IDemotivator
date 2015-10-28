@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/25/2015 02:55:32
--- Generated from EDMX file: D:\Itransition\Gitre\IDemotivator\IDemotivator\Model.edmx
+-- Date Created: 10/28/2015 04:01:13
+-- Generated from EDMX file: D:\Itransition\GitInt\IDemotivator\IDemotivator\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,8 +17,38 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_AspNetUserDemotivator]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Demotivators] DROP CONSTRAINT [FK_AspNetUserDemotivator];
+GO
+IF OBJECT_ID(N'[dbo].[FK_tagtag_to_dem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tag_to_dem] DROP CONSTRAINT [FK_tagtag_to_dem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_tag_to_demDemotivator]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tag_to_dem] DROP CONSTRAINT [FK_tag_to_demDemotivator];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Demotivatorrate]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[rates] DROP CONSTRAINT [FK_Demotivatorrate];
+GO
+IF OBJECT_ID(N'[dbo].[FK_rateAspNetUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[rates] DROP CONSTRAINT [FK_rateAspNetUser];
+GO
 
+-- --------------------------------------------------
+-- Dropping existing tables
+-- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Demotivators]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Demotivators];
+GO
+IF OBJECT_ID(N'[dbo].[tags]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tags];
+GO
+IF OBJECT_ID(N'[dbo].[tag_to_dem]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tag_to_dem];
+GO
+IF OBJECT_ID(N'[dbo].[rates]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[rates];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -83,13 +113,33 @@ CREATE TABLE [dbo].[Demotivators] (
     [Url_Img] nvarchar(max)  NOT NULL,
     [Url_Img_Origin] nvarchar(max)  NOT NULL,
     [Str1] nvarchar(max)  NOT NULL,
-    [Str2] nvarchar(max)  NOT NULL
+    [Str2] nvarchar(max)  NOT NULL,
+    [Rate] nvarchar(max)  NULL
 );
 GO
 
--- Creating table 'Tags'
-CREATE TABLE [dbo].[Tags] (
+-- Creating table 'tags'
+CREATE TABLE [dbo].[tags] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'tag_to_dem'
+CREATE TABLE [dbo].[tag_to_dem] (
+    [tagId] int  NOT NULL,
+    [DemotivatorId] int  NOT NULL,
     [Id] int IDENTITY(1,1) NOT NULL
+);
+GO
+
+-- Creating table 'rates'
+CREATE TABLE [dbo].[rates] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DemotivatorId] int  NOT NULL,
+    [AspNetUserId] nvarchar(128)  NOT NULL,
+    [Count] int  NULL,
+    [IsRate] bit  NOT NULL
 );
 GO
 
@@ -140,9 +190,21 @@ ADD CONSTRAINT [PK_Demotivators]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Tags'
-ALTER TABLE [dbo].[Tags]
-ADD CONSTRAINT [PK_Tags]
+-- Creating primary key on [Id] in table 'tags'
+ALTER TABLE [dbo].[tags]
+ADD CONSTRAINT [PK_tags]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'tag_to_dem'
+ALTER TABLE [dbo].[tag_to_dem]
+ADD CONSTRAINT [PK_tag_to_dem]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'rates'
+ALTER TABLE [dbo].[rates]
+ADD CONSTRAINT [PK_rates]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -222,6 +284,66 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_AspNetUserDemotivator'
 CREATE INDEX [IX_FK_AspNetUserDemotivator]
 ON [dbo].[Demotivators]
+    ([AspNetUserId]);
+GO
+
+-- Creating foreign key on [tagId] in table 'tag_to_dem'
+ALTER TABLE [dbo].[tag_to_dem]
+ADD CONSTRAINT [FK_tagtag_to_dem]
+    FOREIGN KEY ([tagId])
+    REFERENCES [dbo].[tags]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tagtag_to_dem'
+CREATE INDEX [IX_FK_tagtag_to_dem]
+ON [dbo].[tag_to_dem]
+    ([tagId]);
+GO
+
+-- Creating foreign key on [DemotivatorId] in table 'tag_to_dem'
+ALTER TABLE [dbo].[tag_to_dem]
+ADD CONSTRAINT [FK_tag_to_demDemotivator]
+    FOREIGN KEY ([DemotivatorId])
+    REFERENCES [dbo].[Demotivators]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tag_to_demDemotivator'
+CREATE INDEX [IX_FK_tag_to_demDemotivator]
+ON [dbo].[tag_to_dem]
+    ([DemotivatorId]);
+GO
+
+-- Creating foreign key on [DemotivatorId] in table 'rates'
+ALTER TABLE [dbo].[rates]
+ADD CONSTRAINT [FK_Demotivatorrate]
+    FOREIGN KEY ([DemotivatorId])
+    REFERENCES [dbo].[Demotivators]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Demotivatorrate'
+CREATE INDEX [IX_FK_Demotivatorrate]
+ON [dbo].[rates]
+    ([DemotivatorId]);
+GO
+
+-- Creating foreign key on [AspNetUserId] in table 'rates'
+ALTER TABLE [dbo].[rates]
+ADD CONSTRAINT [FK_rateAspNetUser]
+    FOREIGN KEY ([AspNetUserId])
+    REFERENCES [dbo].[AspNetUsers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_rateAspNetUser'
+CREATE INDEX [IX_FK_rateAspNetUser]
+ON [dbo].[rates]
     ([AspNetUserId]);
 GO
 

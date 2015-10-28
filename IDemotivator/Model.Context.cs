@@ -31,6 +31,8 @@ namespace IDemotivator
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Demotivator> Demotivators { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<tag> tags { get; set; }
+        public virtual DbSet<tag_to_dem> tag_to_dem { get; set; }
+        public virtual DbSet<rate> rates { get; set; }
     }
 }
