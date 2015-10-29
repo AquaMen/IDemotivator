@@ -1,5 +1,6 @@
 ﻿# CoffeeScript
 canvas = new fabric.Canvas("canvas")
+fileIMG = undefined
 
 canvas.cli
 string1 = new fabric.IText("Top text",
@@ -51,20 +52,12 @@ document.getElementById('str11').oninput = ->
 
 
 document.getElementById('create').onclick = ->
-  JSONstring = JSON.stringify(canvas)
-  JSONstring = JSONstring.replace("data:image/png;base64,", "")
-  document.getElementById("JSON").value = JSONstring
-
-$('#btnFileUpload').click ->
-  file = undefined
-  formData = undefined
-  imgsrc = undefined
   formData = new FormData
-  file = document.getElementById('fileInput').files[0]
-  formData.append 'fileInput', file
-  imgsrc = file
-
+  formData.append 'fileInput', fileIMG
+  demotIMG = document.getElementById('canvas').toDataURL();
+  formData.append 'canvas', demotIMG
   $.ajax
+    async: false
     url: '/Demotivators/Upload'
     type: 'POST'
     data: formData
@@ -79,7 +72,45 @@ $('#btnFileUpload').click ->
         canvas.backgroundImage.height = canvas.getHeight() - 10
         canvas.renderAll()
       return
+
+  JSONstring = JSON.stringify(canvas)
+  JSONstring = JSONstring.replace("data:image/png;base64,", "")
+  document.getElementById("JSON").value = JSONstring
   return
+
+$('#btnFileUpload').click ->
+  fileIMG = document.getElementById('fileInput').files[0]
+  url = URL.createObjectURL(fileIMG)
+  fabric.Image.fromURL url, (oImg) ->
+    canvas.setBackgroundImage oImg
+    canvas.backgroundImage.width = canvas.getWidth() - 10
+    canvas.backgroundImage.height = canvas.getHeight() - 10
+    canvas.renderAll()
+  return
+
+
+
+
+#$('#btnFileUpload').click ->
+#  file = undefined
+#  imgsrc = undefined
+#  fileIMG = document.getElementById('fileInput').files[0]
+#  fr = new FileReader
+#  fr.onloadend = fileIMG
+#  fr.readAsDataURL(file);
+#  urlIMG = fileIMG.getAsDataURL();
+#  fabric.Image.fromURL urlIMG, (oImg) ->
+#        canvas.setBackgroundImage oImg
+#        canvas.backgroundImage.width = canvas.getWidth() - 10
+#        canvas.backgroundImage.height = canvas.getHeight() - 10
+#        canvas.renderAll()
+
+
+dfd =->
+  file = undefined
+  formData = undefined
+  imgsrc = undefined
+  
 
 
 

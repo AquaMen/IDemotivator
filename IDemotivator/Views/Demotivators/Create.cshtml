@@ -57,9 +57,10 @@
             </div>
         </div>
         <form id="fileUpload" action="@Url.Action("AddImage")" method="POST" enctype="multipart/form-data" >
-            <input id="fileInput" type="file" style="position:fixed; left:50px; top:300px;"/>
-            <input type="button" value="Upload file" id="btnFileUpload" style="position:fixed; left:50px; top:350px;"/>
-        </form>
+
+                <input id="fileInput" type="file" class="btn btn-default" style="position:fixed; left:50px; top:300px;" />
+                <input type="button" value="Upload file" class="btn btn-success" id="btnFileUpload" style="position:fixed; left:350px; top:300px;" />
+          </form>
 
         @Html.EditorFor(model => model.Url_Img, new { htmlAttributes = new { @class = "form-control", id = "Url_Img", type = "hidden" } })
         @Html.EditorFor(model => model.Url_Img_Origin, new { htmlAttributes = new { @class = "form-control", id = "Url_Img_Origin", type = "hidden" } })
@@ -81,7 +82,7 @@
 }
 <div>
 </div>
-
+<img id="im" />
 <script src="~/Scripts/fabric.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/DemoCreate.js"></script>
