@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/28/2015 04:01:13
--- Generated from EDMX file: D:\Itransition\GitInt\IDemotivator\IDemotivator\Model.edmx
+-- Date Created: 10/29/2015 02:20:16
+-- Generated from EDMX file: C:\Users\oleg\Desktop\itransition\IDemotivator\IDemotivator\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -29,9 +29,7 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_Demotivatorrate]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[rates] DROP CONSTRAINT [FK_Demotivatorrate];
 GO
-IF OBJECT_ID(N'[dbo].[FK_rateAspNetUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[rates] DROP CONSTRAINT [FK_rateAspNetUser];
-GO
+
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -49,6 +47,7 @@ GO
 IF OBJECT_ID(N'[dbo].[rates]', 'U') IS NOT NULL
     DROP TABLE [dbo].[rates];
 GO
+
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -114,7 +113,8 @@ CREATE TABLE [dbo].[Demotivators] (
     [Url_Img_Origin] nvarchar(max)  NOT NULL,
     [Str1] nvarchar(max)  NOT NULL,
     [Str2] nvarchar(max)  NOT NULL,
-    [Rate] nvarchar(max)  NULL
+    [Rate] nvarchar(max)  NULL,
+    [JSON] nvarchar(max)  NOT NULL
 );
 GO
 

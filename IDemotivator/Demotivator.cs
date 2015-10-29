@@ -30,6 +30,7 @@ namespace IDemotivator
         public string Str1 { get; set; }
         public string Str2 { get; set; }
         public string Rate { get; set; }
+        public string JSON { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -58,7 +58,7 @@ namespace IDemotivator.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator)
+        public ActionResult Create([Bind(Include = "JSON,Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace IDemotivator.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator)
+        public async Task<ActionResult> Edit([Bind(Include = "JSON,Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator)
         {
             if (ModelState.IsValid)
             {
@@ -166,7 +166,6 @@ namespace IDemotivator.Controllers
                     uploadResult = cloudinary.Upload(uploadParams);
                     System.IO.File.Delete(Server.MapPath("~/" + fileName));
                 }
-
             }
 
             return Json(uploadResult, JsonRequestBehavior.AllowGet);
