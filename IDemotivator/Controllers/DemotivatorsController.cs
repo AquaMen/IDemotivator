@@ -23,6 +23,9 @@ namespace IDemotivator.Controllers
         // GET: Demotivators
         public async Task<ActionResult> Index()
         {
+            Comment comment = new Comment();
+            var s = comment.AspNetUser.UserName;
+            comment.Text.ToString();
             string CurId = User.Identity.GetUserId();
             var demotivators = await db.Demotivators.Where(d => d.AspNetUserId == CurId).ToListAsync();
             return View(demotivators);
@@ -45,6 +48,20 @@ namespace IDemotivator.Controllers
         }
 
 
+        public void AddComment(string TextMessange, int IdDem)
+        {
+            var comment = new Comment();
+            comment.Date = DateTime.Now;
+            comment.AspNetUserId = User.Identity.GetUserId();
+            comment.Text = TextMessange;
+            comment.DemotivatorId = IdDem;
+            db.Comments.Add(comment);
+            db.SaveChanges();
+
+        }
+
+
+
 
         // GET: Demotivators/Create
         public ActionResult Create()
@@ -62,6 +79,7 @@ namespace IDemotivator.Controllers
         {
             if (ModelState.IsValid)
             {
+                demotivator.Url_Img = "asdasdasda";
                 demotivator.AspNetUserId = User.Identity.GetUserId();
                 demotivator.Date = DateTime.Now;
                 db.Demotivators.Add(demotivator);

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Comment>
+
+    @{
+    }
+<link href="~/Content/comments.css" rel="stylesheet" type="text/css">
+
+<script src="~/Scripts/jquery.autosize-min.js"></script>
+<script src="~/Scripts/jquery.timeago.js"></script> 
+
+                  
+<div class="commentSection">
+    <input type="hidden" value="@ViewData["id"]" id="idDem" />
+    @foreach(var item in Model){
+    <ul data-bind="foreach: PostComments">
+        <li class="commentHolder">
+            <img src="~/images/user.png"><p><a data-bind="text: @item.AspNetUser.UserName">@item.AspNetUser.UserName</a>: <span>@item.Text</span></p>
+            <div class="commentFooter"> <span class="timeago" title="@item.Date.ToString("s")" id="Tire"></span>&nbsp;</div>
+        </li>
+    </ul>
+    <script>
+        $("span.timeago").timeago();
+    </script>
+    }
+                              
+    <div style="display: block" class="publishComment">
+        <textarea class="commentTextArea" id="Text" data-bind="value: newCommentMessage, jqAutoresize: {}" placeholder="write a comment..."></textarea>
+        <input type="button" value="Comment" class="btnComment" data-bind="click: addComment" id="btnAddComment" />
+    </div>
+</div>
+ <script>
+    $('#btnAddComment').click(function() {
+  var formData, Text, IdDem;
+  IdDem = document.getElementById('idDem').value;
+  formData = new FormData;
+  Text = document.getElementById('Text').value;
+  formData.append('TextMessange', Text);
+  formData.append('IdDem', IdDem);
+  $.ajax({
+    url: '/Demotivators/AddComment',
+    type: 'POST',
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function(data) {
+    alert("valera-loh");}
+  });
+});
+</script>

@@ -19,9 +19,12 @@
         <EntityTypeShape EntityType="Model.tag_to_dem" Width="1.5" PointX="6.125" PointY="0.5" />
         <AssociationConnector Association="Model.tagtag_to_dem" />
         <AssociationConnector Association="Model.tag_to_demDemotivator" />
-        <EntityTypeShape EntityType="Model.rate" Width="1.5" PointX="4.25" PointY="4.25" />
+        <EntityTypeShape EntityType="Model.rate" Width="1.5" PointX="5.25" PointY="5" />
         <AssociationConnector Association="Model.Demotivatorrate" />
         <AssociationConnector Association="Model.rateAspNetUser" />
+        <EntityTypeShape EntityType="Model.Comment" Width="1.5" PointX="8.625" PointY="0.5" />
+        <AssociationConnector Association="Model.DemotivatorComment" />
+        <AssociationConnector Association="Model.CommentAspNetUser" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

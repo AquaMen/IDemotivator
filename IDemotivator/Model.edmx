@@ -15,6 +15,7 @@
     <EntitySet Name="tags" EntityType="Model.Store.tags" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tag_to_dem" EntityType="Model.Store.tag_to_dem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="rates" EntityType="Model.Store.rates" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="Model.Store.Comments" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AspNetUserRoles" EntityType="Model.Store.AspNetUserRoles" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.Store.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -50,6 +51,14 @@
     </AssociationSet>
     <AssociationSet Name="rateAspNetUser" Association="Model.Store.rateAspNetUser">
       <End Role="rate" EntitySet="rates" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="DemotivatorComment" Association="Model.Store.DemotivatorComment">
+      <End Role="Demotivator" EntitySet="Demotivators" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="CommentAspNetUser" Association="Model.Store.CommentAspNetUser">
+      <End Role="Comment" EntitySet="Comments" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
   </EntityContainer>
@@ -145,6 +154,16 @@
     <Property Name="AspNetUserId" Type="nvarchar" Nullable="false" MaxLength="128" />
     <Property Name="Count" Type="int" Nullable="true" />
     <Property Name="IsRate" Type="bit" Nullable="false" DefaultValue="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="DemotivatorId" Type="int" Nullable="false" />
+    <Property Name="AspNetUserId" Type="nvarchar" Nullable="false" MaxLength="128" />
   </EntityType>
   <EntityType Name="AspNetUserRoles">
     <Key>
@@ -242,6 +261,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="DemotivatorComment">
+    <End Role="Demotivator" Type="Model.Store.Demotivators" Multiplicity="1" />
+    <End Role="Comment" Type="Model.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Demotivator">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="DemotivatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommentAspNetUser">
+    <End Role="Comment" Type="Model.Store.Comments" Multiplicity="*" />
+    <End Role="AspNetUser" Type="Model.Store.AspNetUsers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="AspNetUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_AspNetUserRoles_AspNetRoles">
     <End Role="AspNetRoles" Type="Model.Store.AspNetRoles" Multiplicity="1" />
     <End Role="AspNetUserRoles" Type="Model.Store.AspNetUserRoles" Multiplicity="*" />
@@ -330,6 +373,7 @@
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Demotivators" Relationship="Model.AspNetUserDemotivator" FromRole="AspNetUser" ToRole="Demotivator" />
           <NavigationProperty Name="rates" Relationship="Model.rateAspNetUser" FromRole="AspNetUser" ToRole="rate" />
+          <NavigationProperty Name="Comments" Relationship="Model.CommentAspNetUser" FromRole="AspNetUser" ToRole="Comment" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -405,6 +449,15 @@
             <End Role="rate" EntitySet="rates" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Comments" EntityType="Model.Comment" />
+          <AssociationSet Name="DemotivatorComment" Association="Model.DemotivatorComment">
+            <End Role="Demotivator" EntitySet="Demotivators" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="CommentAspNetUser" Association="Model.CommentAspNetUser">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Demotivator">
           <Key>
@@ -423,6 +476,7 @@
           <NavigationProperty Name="rates" Relationship="Model.Demotivatorrate" FromRole="Demotivator" ToRole="rate" />
           <Property Name="Rate" Type="String" Nullable="true" />
           <Property Name="JSON" Type="String" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="Model.DemotivatorComment" FromRole="Demotivator" ToRole="Comment" />
         </EntityType>
         <Association Name="AspNetUserDemotivator">
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -510,6 +564,42 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="rate">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Demotivator" Relationship="Model.DemotivatorComment" FromRole="Comment" ToRole="Demotivator" />
+          <Property Name="DemotivatorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.CommentAspNetUser" FromRole="Comment" ToRole="AspNetUser" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="DemotivatorComment">
+          <End Type="Model.Demotivator" Role="Demotivator" Multiplicity="1" />
+          <End Type="Model.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Demotivator">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="DemotivatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CommentAspNetUser">
+          <End Type="Model.Comment" Role="Comment" Multiplicity="*" />
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
               <PropertyRef Name="AspNetUserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -616,6 +706,17 @@
           <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
           <ScalarProperty Name="Count" ColumnName="Count" />
           <ScalarProperty Name="IsRate" ColumnName="IsRate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Comment)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="DemotivatorId" ColumnName="DemotivatorId" />
+          <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

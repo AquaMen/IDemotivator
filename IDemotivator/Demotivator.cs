@@ -19,6 +19,7 @@ namespace IDemotivator
         {
             this.tag_to_dem = new HashSet<tag_to_dem>();
             this.rates = new HashSet<rate>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int Id { get; set; }
@@ -37,5 +38,7 @@ namespace IDemotivator
         public virtual ICollection<tag_to_dem> tag_to_dem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rate> rates { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

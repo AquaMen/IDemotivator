@@ -1,0 +1,184 @@
+﻿
+    .msgTextArea
+    {
+        width: 97%;
+        height: 80px;
+        border-radius: 7px;
+    }
+
+    .commentTextArea
+    {
+        width: 97%;
+        border-radius: 7px;
+        height: 40px;
+    }
+
+    .publishContainer
+    {
+        width: 65%;
+        text-align: right;
+         background-color: #F2F2F2;
+        border-color: #B4BBCD;
+        border-image: none;
+        border-style: solid;
+        border-width: 1px;
+        padding: 1em 1.2em ;
+        margin-bottom:2em;
+    }
+
+    .publishComment
+    {
+
+        text-align: left;
+        width: 100%;
+        display: none;
+    }
+
+    #msgHolder
+    {
+        width: 65%;
+    }
+
+        #msgHolder img
+        {
+            float: left;
+            margin-right: 7px;
+        }
+
+        #msgHolder a
+        {
+            text-decoration: none;
+            color: #015BA7;
+        }
+
+            #msgHolder a:hover
+            {
+                text-decoration: underline;
+            }
+
+    .postHolder
+    {
+        padding: 5px;
+        border-bottom: solid 1px #E6E6E6;
+        margin: 5px;
+       list-style:none;
+    }
+
+        .postHolder p
+        {
+            margin: 4px auto 7px 50px;
+        }
+
+        .postHolder a
+        {
+            font-weight: bold;
+        }
+
+    .commentSection
+    {
+        font-size: 0.85em;
+
+    }
+
+        .commentSection span
+        {
+            color: #7D7D84;
+        }
+
+        .commentSection a
+        {
+            font-weight: normal;
+        }
+
+    .commentHolder
+    {
+        clear: both;
+        background-color: #EEF1F6;
+        padding: 5px;
+        border-bottom: 1px solid #DEE5EA;
+        border-top: 1px solid white;
+        list-style:none;
+    }
+
+    #btnShare, .btnComment, .btnRequest, .btn
+    {
+      background-color: #5B74A8;
+        border: 0 none;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
+        margin-top: 5px;
+        margin-right: 10px;
+        padding: 5px;
+        text-align: center;
+        width: 70px;
+    }
+
+    aside
+    {
+        float: right;
+        width: 30%;
+        font-size: 0.85em;
+    }
+
+        aside > div, #myConnections
+        {
+            border: solid 2px #3B5998;
+            border-radius: 7px;
+            float: left;
+            width: 99%;
+            margin-bottom: 5px;
+        }
+
+            aside h3, #myConnections h3
+            {
+                background-color: #3B5998;
+                color: White;
+                margin: 0px;
+                padding: 3px;
+                font-size: 0.95em;
+            }
+
+            aside a, #myConnections a
+            {
+                text-decoration: none;
+                color: #015BA7;
+                font-weight: bold;
+            }
+
+                aside a:hover, #myConnections a:hover
+                {
+                    text-decoration: underline;
+                }
+
+            aside img, #myConnections img
+            {
+                float: left;
+                margin-right: 7px;
+            }
+
+    .useritem
+    {
+        border-bottom: 1px solid #DEE5EA;
+        clear: both;
+        overflow: auto;
+        padding: 3px;
+    }
+
+        .useritem p
+        {
+            margin: 4px auto 7px 55px;
+        }
+
+    .btnRequest, .btn
+    {
+        margin-top: 7px;
+    }
+
+    #myConnections
+    {
+        margin: 15px;
+        width: 60%;
+        font-size: 0.85em;
+    }

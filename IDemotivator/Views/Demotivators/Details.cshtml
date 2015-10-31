@@ -40,6 +40,9 @@
         @if (Model.Rate is string){
         <div class="td" id="ShowRe">@Html.Partial("_VoteShow", Model.Rate)</div>
         }
+        
+        <div class="td" id="ShowRes">@Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id" , @Model.Id}})</div>
+    
     </div>
 </div>
 <p>
@@ -47,4 +50,3 @@
 </p>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/fabric.js"></script>
-<script src="~/Scripts/DemoDetail.js"></script>
