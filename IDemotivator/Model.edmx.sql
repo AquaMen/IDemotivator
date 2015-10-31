@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/29/2015 23:59:41
+-- Date Created: 10/31/2015 23:30:19
 -- Generated from EDMX file: D:\Itransition\GitInt\IDemotivator\IDemotivator\Model.edmx
 -- --------------------------------------------------
 
@@ -32,12 +32,16 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_rateAspNetUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[rates] DROP CONSTRAINT [FK_rateAspNetUser];
 GO
+IF OBJECT_ID(N'[dbo].[FK_DemotivatorComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_DemotivatorComment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CommentAspNetUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_CommentAspNetUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
-
-
 
 IF OBJECT_ID(N'[dbo].[Demotivators]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Demotivators];
@@ -51,6 +55,10 @@ GO
 IF OBJECT_ID(N'[dbo].[rates]', 'U') IS NOT NULL
     DROP TABLE [dbo].[rates];
 GO
+IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Comments];
+GO
+
 
 -- --------------------------------------------------
 -- Creating all tables

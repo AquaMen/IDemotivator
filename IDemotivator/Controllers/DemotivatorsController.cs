@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using System.IO;
 
 namespace IDemotivator.Controllers
 {
@@ -82,7 +83,9 @@ namespace IDemotivator.Controllers
                 demotivator.Url_Img = "asdasdasda";
                 demotivator.AspNetUserId = User.Identity.GetUserId();
                 demotivator.Date = DateTime.Now;
+
                 db.Demotivators.Add(demotivator);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -152,41 +155,70 @@ namespace IDemotivator.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        [HttpPost] 
         public JsonResult Upload()
         {
+            List<ImageUploadResult> list = new List<ImageUploadResult>();
             JsonResult trem = new JsonResult();
+            string fileName = "";
             ImageUploadResult uploadResult = new ImageUploadResult();
+            ImageUploadResult uploadResult2 = new ImageUploadResult();
+            ImageUploadParams uploadParams = new ImageUploadParams();
+            ImageUploadParams uploadParams2 = new ImageUploadParams();
+            Account account = new Account(
+                       "aniknaemm",
+                       "173434464182424",
+                       "p3LleRLwWAxpm9yU3CHT63qKp_E");
+
+            CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+
             foreach (string file in Request.Files)
             {
                 var upload = Request.Files[file];
                 if (upload != null)
-                {
-                    Account account = new Account(
-                        "aniknaemm",
-                        "173434464182424",
-                        "p3LleRLwWAxpm9yU3CHT63qKp_E");
-
-                    CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
-                    // получаем имя файла
-                    string fileName = System.IO.Path.GetFileName(upload.FileName);
-                    // сохраняем файл в папку Files в проекте
+                {                   
+                    fileName = System.IO.Path.GetFileName(upload.FileName);
                     upload.SaveAs(Server.MapPath("~/" + fileName));
-                   
-                    var uploadParams = new ImageUploadParams()
+                    uploadParams = new ImageUploadParams()
                     {
-
                         File = new FileDescription(Server.MapPath("~/" + fileName)),
                         PublicId = User.Identity.Name + fileName,
-                        Tags = "special, for_homepage"
-                    };
-                   
-                    uploadResult = cloudinary.Upload(uploadParams);
-                    System.IO.File.Delete(Server.MapPath("~/" + fileName));
+                    };        
                 }
             }
 
-            return Json(uploadResult, JsonRequestBehavior.AllowGet);
+
+            foreach (string file in Request.Form)
+            {
+                var upload = Request.Form[file];
+                if (upload != null)
+                {
+
+                    string x = upload.Replace("data:image/png;base64,", "");
+                    byte[] imageBytes = Convert.FromBase64String(x);
+                    MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+
+
+                    ms.Write(imageBytes, 0, imageBytes.Length);
+                    System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
+                    image.Save(Server.MapPath("~/img.png"), System.Drawing.Imaging.ImageFormat.Png);
+
+                    uploadParams2 = new ImageUploadParams()
+                    {
+                        File = new FileDescription(Server.MapPath("~/img.png")),
+                        PublicId = User.Identity.Name + fileName +"demotevators"
+                    };
+                }
+            }
+
+
+            uploadResult = cloudinary.Upload(uploadParams);
+            list.Add(uploadResult);
+            uploadResult2 = cloudinary.Upload(uploadParams2);
+            list.Add(uploadResult2);
+            System.IO.File.Delete(Server.MapPath("~/" + fileName));
+            System.IO.File.Delete(Server.MapPath("~/img.png"));
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
