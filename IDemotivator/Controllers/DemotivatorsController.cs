@@ -65,7 +65,9 @@ namespace IDemotivator.Controllers
             {
                 demotivator.AspNetUserId = User.Identity.GetUserId();
                 demotivator.Date = DateTime.Now;
+
                 db.Demotivators.Add(demotivator);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -157,17 +159,12 @@ namespace IDemotivator.Controllers
                 var upload = Request.Files[file];
                 if (upload != null)
                 {                   
-                    // получаем имя файла
                     fileName = System.IO.Path.GetFileName(upload.FileName);
-                    // сохраняем файл в папку Files в проекте
                     upload.SaveAs(Server.MapPath("~/" + fileName));
-                   
                     uploadParams = new ImageUploadParams()
                     {
-
                         File = new FileDescription(Server.MapPath("~/" + fileName)),
                         PublicId = User.Identity.Name + fileName,
-                        Tags = "special, for_homepage"
                     };        
                 }
             }
@@ -180,28 +177,21 @@ namespace IDemotivator.Controllers
                 {
 
                     string x = upload.Replace("data:image/png;base64,", "");
-                    // Convert Base64 String to byte[]
                     byte[] imageBytes = Convert.FromBase64String(x);
                     MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
 
-                    // Convert byte[] to Image
+
                     ms.Write(imageBytes, 0, imageBytes.Length);
                     System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
                     image.Save(Server.MapPath("~/img.png"), System.Drawing.Imaging.ImageFormat.Png);
 
                     uploadParams2 = new ImageUploadParams()
                     {
-
                         File = new FileDescription(Server.MapPath("~/img.png")),
-                        PublicId = User.Identity.Name,
-                        Tags = "special, for_homepage"
+                        PublicId = User.Identity.Name + fileName +"demotevators"
                     };
-                    // сохраняем файл в папку Files в проекте
-
                 }
             }
-
-
 
 
             uploadResult = cloudinary.Upload(uploadParams);
@@ -209,7 +199,7 @@ namespace IDemotivator.Controllers
             uploadResult2 = cloudinary.Upload(uploadParams2);
             list.Add(uploadResult2);
             System.IO.File.Delete(Server.MapPath("~/" + fileName));
-
+            System.IO.File.Delete(Server.MapPath("~/img.png"));
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 

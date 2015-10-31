@@ -9,8 +9,8 @@
 <style>
     #canvas-container {
             position: relative;
-            width: 900px;
-            height: 550px;
+                        width: 600px;
+            height: 370px;
             box-shadow: 0 0 5px 1px black;
             margin: 10px auto;
             border: 5px solid transparent;
@@ -28,7 +28,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.Name)
-            @Html.EditorFor(model => model.Url_Img, new { htmlAttributes = new { @class = "form-control", id = "url2", type = "hidden"} })
+            @Html.EditorFor(model => model.JSON, new { htmlAttributes = new { @class = "form-control", id = "JSON", type = "hidden"} })
         </dd>
     </dl>
     <div id="canvas-container">
