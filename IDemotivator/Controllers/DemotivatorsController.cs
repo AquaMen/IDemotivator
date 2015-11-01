@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace IDemotivator.Controllers
 {
@@ -69,22 +70,54 @@ namespace IDemotivator.Controllers
             return View();
         }
 
+
+        public void AddTag (string Tag, int DemId)
+        {
+            Regex regular = new Regex(@"\w+");
+            MatchCollection tagi = regular.Matches(Tag);
+            tag_to_dem tag1 = new tag_to_dem();
+            var tags = db.tags.ToList();
+            foreach (var tagses in tagi)
+            {
+            foreach (var item in tags)
+            {
+                if (tagses.ToString() == item.Name)
+                {
+                    tag1.DemotivatorId = DemId;
+                    tag1.tagId = item.Id;
+                    db.tag_to_dem.Add(tag1);
+                    db.SaveChanges();
+                    return;
+                }
+            }
+            tag tag2 = new tag();
+            tag2.Name = tagses.ToString();
+            db.tags.Add(tag2);
+            db.SaveChanges();
+            tag1.DemotivatorId = DemId;
+            tag1.tagId = tag2.Id;
+            db.tag_to_dem.Add(tag1);
+            db.SaveChanges();
+            }
+        }
+
         // POST: Demotivators/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "JSON,Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator)
+        public ActionResult Create([Bind(Include = "JSON,Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator, string newtag)
         {
             if (ModelState.IsValid)
             {
                 demotivator.Url_Img = "asdasdasda";
                 demotivator.AspNetUserId = User.Identity.GetUserId();
                 demotivator.Date = DateTime.Now;
-
+                
                 db.Demotivators.Add(demotivator);
 
                 db.SaveChanges();
+                AddTag(newtag, demotivator.Id);
                 return RedirectToAction("Index");
             }
 
@@ -142,12 +175,48 @@ namespace IDemotivator.Controllers
             return View(demotivator);
         }
 
+        public void DeleteRates (int id)
+        {
+            var rates = db.rates.Where(t => t.DemotivatorId == id).ToList();
+            foreach (var item in rates)
+            {
+                db.rates.Remove(item);
+            }
+        }
+
+        public void DeleteComments(int id)
+        {
+            var comments = db.Comments.Where(t => t.DemotivatorId == id).ToList();
+            foreach (var item in comments)
+            {
+                db.Comments.Remove(item);
+            }
+        }
+
+        public void DeleteTags(int id)
+        {
+            var tags = db.tag_to_dem.Where(t => t.DemotivatorId == id).ToList();
+            foreach (var item in tags)
+            {
+                db.tag_to_dem.Remove(item);
+            }
+        }
+
+        public void DeleteAdds(int id)
+        {
+            DeleteComments(id);
+            DeleteRates(id);
+            DeleteTags(id);
+        }
+
         // POST: Demotivators/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Demotivator demotivator = await db.Demotivators.FindAsync(id);
+            DeleteAdds(id);
+            
             db.Demotivators.Remove(demotivator);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

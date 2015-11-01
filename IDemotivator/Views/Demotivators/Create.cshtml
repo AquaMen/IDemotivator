@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var newtag = "";
 }
 <style>
     #canvas-container {
@@ -63,6 +64,13 @@
             @Html.EditorFor(model => model.Url_Img_Origin, new { htmlAttributes = new { @class = "form-control", id = "Url_Img_Origin", type = "hidden" } })
             @Html.EditorFor(model => model.JSON, new { htmlAttributes = new { @class = "form-control", id = "JSON", type = "hidden" } })
 
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(newt => newtag, new { htmlAttributes = new { @class = "form-control"} })
+
+
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Create" class="btn btn-default" id="create" />
