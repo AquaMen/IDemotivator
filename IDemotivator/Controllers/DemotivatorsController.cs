@@ -24,9 +24,7 @@ namespace IDemotivator.Controllers
         // GET: Demotivators
         public async Task<ActionResult> Index()
         {
-            Comment comment = new Comment();
-            var s = comment.AspNetUser.UserName;
-            comment.Text.ToString();
+           
             string CurId = User.Identity.GetUserId();
             var demotivators = await db.Demotivators.Where(d => d.AspNetUserId == CurId).ToListAsync();
             return View(demotivators);
