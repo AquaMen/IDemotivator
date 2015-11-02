@@ -276,10 +276,15 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\comments.css" />
+    <Content Include="Content\lightbox.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\close.png" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\next.png" />
+    <Content Include="images\prev.png" />
     <Content Include="images\user.png" />
     <Content Include="images\whitestar.gif" />
     <Content Include="images\yellowstar.gif" />
@@ -318,6 +323,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lightbox.js" />
     <Content Include="Scripts\Livestamp.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />

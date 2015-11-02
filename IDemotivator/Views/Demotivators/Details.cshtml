@@ -30,7 +30,9 @@
             @Html.DisplayFor(model => model.Name)
             @Html.EditorFor(model => model.JSON, new { htmlAttributes = new { @class = "form-control", id = "JSON", type = "hidden"} })
         </dd>
+        
     </dl>
+    <img src="@Model.Url_Img" />
     <div id="canvas-container">
         <canvas id="canvas" width="300" height="250"></canvas>
     </div>

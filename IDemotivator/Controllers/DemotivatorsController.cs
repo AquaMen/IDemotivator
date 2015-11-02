@@ -78,7 +78,7 @@ namespace IDemotivator.Controllers
         {
             if (ModelState.IsValid)
             {
-                demotivator.Url_Img = "asdasdasda";
+
                 demotivator.AspNetUserId = User.Identity.GetUserId();
                 demotivator.Date = DateTime.Now;
 

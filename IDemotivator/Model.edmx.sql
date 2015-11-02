@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/31/2015 23:30:19
--- Generated from EDMX file: D:\Itransition\GitInt\IDemotivator\IDemotivator\Model.edmx
+-- Date Created: 11/02/2015 03:06:36
+-- Generated from EDMX file: C:\Users\oleg\Desktop\itransition\IDemotivator\IDemotivator\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -12,53 +12,6 @@ USE [aspnet-IDemotivator-20151024111336];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
-
--- --------------------------------------------------
--- Dropping existing FOREIGN KEY constraints
--- --------------------------------------------------
-
-IF OBJECT_ID(N'[dbo].[FK_AspNetUserDemotivator]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Demotivators] DROP CONSTRAINT [FK_AspNetUserDemotivator];
-GO
-IF OBJECT_ID(N'[dbo].[FK_tagtag_to_dem]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tag_to_dem] DROP CONSTRAINT [FK_tagtag_to_dem];
-GO
-IF OBJECT_ID(N'[dbo].[FK_tag_to_demDemotivator]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tag_to_dem] DROP CONSTRAINT [FK_tag_to_demDemotivator];
-GO
-IF OBJECT_ID(N'[dbo].[FK_Demotivatorrate]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[rates] DROP CONSTRAINT [FK_Demotivatorrate];
-GO
-IF OBJECT_ID(N'[dbo].[FK_rateAspNetUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[rates] DROP CONSTRAINT [FK_rateAspNetUser];
-GO
-IF OBJECT_ID(N'[dbo].[FK_DemotivatorComment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_DemotivatorComment];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CommentAspNetUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_CommentAspNetUser];
-GO
-
--- --------------------------------------------------
--- Dropping existing tables
--- --------------------------------------------------
-
-IF OBJECT_ID(N'[dbo].[Demotivators]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Demotivators];
-GO
-IF OBJECT_ID(N'[dbo].[tags]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[tags];
-GO
-IF OBJECT_ID(N'[dbo].[tag_to_dem]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[tag_to_dem];
-GO
-IF OBJECT_ID(N'[dbo].[rates]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[rates];
-GO
-IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Comments];
-GO
-
 
 -- --------------------------------------------------
 -- Creating all tables
