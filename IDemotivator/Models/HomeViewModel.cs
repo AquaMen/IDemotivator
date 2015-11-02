@@ -12,7 +12,7 @@ namespace IDemotivator.Models
         public int DemCount { get; set; }
         public string GetTagClass(int demotivators, int DemCount)
         {
-            var result = (demotivators * 10) / DemCount;
+            var result = (demotivators * 100) / DemCount;
             if (result <= 1)
                 return "tag1";
             if (result <= 4)
