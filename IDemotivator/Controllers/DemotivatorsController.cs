@@ -60,8 +60,22 @@ namespace IDemotivator.Controllers
 
         }
 
+        [AllowAnonymous]
+        public ActionResult SearchResult(int id)
+        {
+            var tags = db.tag_to_dem.Where(d => d.tagId == id).ToList();
+            List<Demotivator> demotivators = new List<Demotivator>();
+            foreach(var item in tags)
+            {
+                var demotivator1 = db.Demotivators.Where(s => s.Id == item.DemotivatorId).ToList();
+                foreach (var item1 in demotivator1)
+                {
+                    demotivators.Add(item1);
+                }
 
-
+            }
+            return View(demotivators);
+        }
 
         // GET: Demotivators/Create
         public ActionResult Create()
@@ -70,34 +84,44 @@ namespace IDemotivator.Controllers
             return View();
         }
 
+        public void TagSave(int DemId, int id)
+        {
+            tag_to_dem tag1 = new tag_to_dem();
+            tag1.DemotivatorId = DemId;
+            tag1.tagId = id;
+            db.tag_to_dem.Add(tag1);
+            var tag = db.tags.Find(id);
+            tag.Count++;
+            db.Entry(tag).State = EntityState.Modified;
+            db.SaveChanges();
+        }
 
         public void AddTag (string Tag, int DemId)
         {
             Regex regular = new Regex(@"\w+");
             MatchCollection tagi = regular.Matches(Tag);
-            tag_to_dem tag1 = new tag_to_dem();
-            var tags = db.tags.ToList();
+            var tags =  db.tags.ToList();
+            bool flag = false;
             foreach (var tagses in tagi)
             {
+                flag = false;
+                tags = db.tags.ToList();
             foreach (var item in tags)
             {
                 if (tagses.ToString() == item.Name)
                 {
-                    tag1.DemotivatorId = DemId;
-                    tag1.tagId = item.Id;
-                    db.tag_to_dem.Add(tag1);
-                    db.SaveChanges();
-                    return;
+                    TagSave(DemId, item.Id);
+                    flag = true;
                 }
             }
-            tag tag2 = new tag();
-            tag2.Name = tagses.ToString();
-            db.tags.Add(tag2);
-            db.SaveChanges();
-            tag1.DemotivatorId = DemId;
-            tag1.tagId = tag2.Id;
-            db.tag_to_dem.Add(tag1);
-            db.SaveChanges();
+            if (!flag)
+            {
+                tag tag2 = new tag();
+                tag2.Name = tagses.ToString();
+                db.tags.Add(tag2);
+                db.SaveChanges();
+                TagSave(DemId, tag2.Id);
+            }
             }
         }
 
@@ -193,13 +217,27 @@ namespace IDemotivator.Controllers
             }
         }
 
+        public void CheckTag(int id)
+        {
+            tag tag1 = new tag();
+            tag1 = db.tags.Find(id);
+            tag1.Count--;
+            if (tag1.Count == 0)
+                db.tags.Remove(tag1);
+            else
+                db.Entry(tag1).State = EntityState.Modified;
+        }
+
         public void DeleteTags(int id)
         {
+            
             var tags = db.tag_to_dem.Where(t => t.DemotivatorId == id).ToList();
             foreach (var item in tags)
             {
+                CheckTag(item.tagId);
                 db.tag_to_dem.Remove(item);
             }
+
         }
 
         public void DeleteAdds(int id)

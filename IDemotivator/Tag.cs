@@ -17,11 +17,13 @@ namespace IDemotivator
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tag()
         {
+            this.Count = 0;
             this.tag_to_dem = new HashSet<tag_to_dem>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Count { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tag_to_dem> tag_to_dem { get; set; }

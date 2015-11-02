@@ -19,12 +19,20 @@ namespace IDemotivator.Controllers
     {
         private Entities db = new Entities();
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var demotivators = db.Demotivators.Include(s => s.AspNetUser);
-            return View(await demotivators.ToListAsync());
+            HomeViewModel home = new HomeViewModel();
+            var tags = db.tags.ToList();
+            var demotivators = db.Demotivators.Include(s => s.AspNetUser).ToList();
+            home.demotivators = demotivators;
+            home.tags = tags;
+            home.DemCount = db.Demotivators.Count();
+            return View(home);
             
         }
+
+        
+
 
         public ActionResult About()
         {

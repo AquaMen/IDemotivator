@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/31/2015 23:30:19
+-- Date Created: 11/02/2015 05:00:18
 -- Generated from EDMX file: D:\Itransition\GitInt\IDemotivator\IDemotivator\Model.edmx
 -- --------------------------------------------------
 
@@ -42,6 +42,7 @@ GO
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
+
 
 IF OBJECT_ID(N'[dbo].[Demotivators]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Demotivators];
@@ -132,7 +133,8 @@ GO
 -- Creating table 'tags'
 CREATE TABLE [dbo].[tags] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [Name] nvarchar(max)  NOT NULL,
+    [Count] int  NOT NULL
 );
 GO
 

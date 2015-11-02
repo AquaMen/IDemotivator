@@ -258,6 +258,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -357,6 +358,7 @@
     <Content Include="Views\Shared\_VoteShow.cshtml" />
     <Content Include="Scripts\Rateing.coffee" />
     <Content Include="Views\Shared\_Comments.cshtml" />
+    <Content Include="Views\Demotivators\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

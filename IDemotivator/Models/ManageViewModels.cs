@@ -15,7 +15,6 @@ namespace IDemotivator.Models
     }
 
 
-
     public class ChangePasswordViewModel
     {
         [Required]
