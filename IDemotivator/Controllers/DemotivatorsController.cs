@@ -14,10 +14,12 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using System.IO;
 using System.Text.RegularExpressions;
+using IDemotivator.Filters;
 
 namespace IDemotivator.Controllers
 {
     [Authorize]
+    [Culture]
     public class DemotivatorsController : Controller
     {
         private Entities db = new Entities();

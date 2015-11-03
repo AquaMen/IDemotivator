@@ -117,13 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GmailLogin" xml:space="preserve">
-    <value>Demotivatorme@gmail.com</value>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Демчики</value>
+    <comment>HomeController</comment>
   </data>
-  <data name="GmailPassword" xml:space="preserve">
-    <value>Itransition99a</value>
+  <data name="ChooseContry" xml:space="preserve">
+    <value>Выберите страну</value>
+    <comment>HomeController</comment>
   </data>
-  <data name="GmailSmtp" xml:space="preserve">
-    <value>smtp.gmail.com</value>
+  <data name="ChooseLang" xml:space="preserve">
+    <value>Выберите язык</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Повторить пароль</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="CreateANewAccount" xml:space="preserve">
+    <value>Создать новый аккаунт</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронная почта</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Дарова!!!</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Главная</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Главная страница</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="IncorrectLoginOrPassword" xml:space="preserve">
+    <value>Неккоректный пароль или логин</value>
+    <comment>ValidationFormUserLogIn</comment>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Войти</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="LogInText" xml:space="preserve">
+    <value>Используйте локальный аккаунт для входа</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Выйти</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="MailMessage" xml:space="preserve">
+    <value>Подтвердите свой ​​аккаунт , перейдя по ссылке :</value>
+    <comment>ValidationFormUserLogIn</comment>
+  </data>
+  <data name="MailTheme" xml:space="preserve">
+    <value>Электронная почта подтверждена</value>
+    <comment>ValidationFormUserLogIn</comment>
+  </data>
+  <data name="NotConfirmedEmail" xml:space="preserve">
+    <value>Электронная почта не подтверждена</value>
+    <comment>ValidationFormUserLogIn</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="RegisterAsANewUser" xml:space="preserve">
+    <value>Зарегестрироваться как новый пользователь</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить?</value>
+    <comment>HomeController</comment>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Тэгз</value>
+    <comment>HomeController</comment>
   </data>
 </root>

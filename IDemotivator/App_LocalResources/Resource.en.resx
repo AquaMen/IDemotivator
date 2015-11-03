@@ -117,13 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GmailLogin" xml:space="preserve">
-    <value>Demotivatorme@gmail.com</value>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Demotivators</value>
   </data>
-  <data name="GmailPassword" xml:space="preserve">
-    <value>Itransition99a</value>
+  <data name="ChooseContry" xml:space="preserve">
+    <value>Choose country</value>
   </data>
-  <data name="GmailSmtp" xml:space="preserve">
-    <value>smtp.gmail.com</value>
+  <data name="ChooseLang" xml:space="preserve">
+    <value>ChooseLang</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>confirm password</value>
+  </data>
+  <data name="CreateANewAccount" xml:space="preserve">
+    <value>Create a new account</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="IncorrectLoginOrPassword" xml:space="preserve">
+    <value>Incorrect login or password</value>
+    <comment>ValidationFormUserLogIn</comment>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LogInText" xml:space="preserve">
+    <value>Use local account to login</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="MailMessage" xml:space="preserve">
+    <value>Confirm your account by clicking:</value>
+    <comment>ValidationFormUserLogIn</comment>
+  </data>
+  <data name="MailTheme" xml:space="preserve">
+    <value>Email Confirmation</value>
+    <comment>ValidationFormUserLogIn</comment>
+  </data>
+  <data name="NotConfirmedEmail" xml:space="preserve">
+    <value>Not confirmed email</value>
+    <comment>ValidationFormUserLogIn</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterAsANewUser" xml:space="preserve">
+    <value>Register as  a new user</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
 </root>

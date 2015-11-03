@@ -10,10 +10,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IDemotivator.Models;
 using IDemotivator.App_LocalResources;
+using IDemotivator.Filters;
 
 namespace IDemotivator.Controllers
 {
     [Authorize]
+    [Culture]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -81,12 +83,12 @@ namespace IDemotivator.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", GlobalRes.NotConfirmedEmail);
+                        ModelState.AddModelError("", Resources.Resource.NotConfirmedEmail);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", GlobalRes.IncorrectLogin);
+                    ModelState.AddModelError("", Resources.Resource.IncorrectLoginOrPassword);
                 }
             }
             return View(model);
@@ -120,8 +122,8 @@ namespace IDemotivator.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
                                protocol: Request.Url.Scheme);
                     // отправка письма
-                    await UserManager.SendEmailAsync(user.Id, GlobalRes.MailTheme,
-                               GlobalRes.MailMessage + " <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.SendEmailAsync(user.Id, Resources.Resource.MailTheme,
+                               Resources.Resource.MailMessage + " <a href=\"" + callbackUrl + "\">here</a>");
                     return View("DisplayEmail");
                 }
                 AddErrors(result);
