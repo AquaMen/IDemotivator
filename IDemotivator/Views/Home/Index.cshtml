@@ -1,7 +1,7 @@
 ﻿@model IDemotivator.Models.HomeViewModel
 
     @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = Resources.Resource.HomePage;
     Layout = "~/Views/Shared/_Layout.cshtml";
     }
 
@@ -29,7 +29,7 @@
 
        }
         <div class="panel panel-default col-md-offset-8">
-            <div class="panel-heading">Tags:</div>
+            <div class="panel-heading"> @Resources.Resource.Tags :</div>
             <div class="panel-body">
                 <div id="tags">
                     @foreach (var t in Model.tags ) {

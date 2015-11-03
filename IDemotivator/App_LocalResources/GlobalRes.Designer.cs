@@ -86,41 +86,5 @@ namespace IDemotivator.App_LocalResources {
                 return ResourceManager.GetString("GmailSmtp", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Incorrect login or password.
-        /// </summary>
-        public static string IncorrectLogin {
-            get {
-                return ResourceManager.GetString("IncorrectLogin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Confirm your account by clicking:.
-        /// </summary>
-        public static string MailMessage {
-            get {
-                return ResourceManager.GetString("MailMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email Confirmation.
-        /// </summary>
-        public static string MailTheme {
-            get {
-                return ResourceManager.GetString("MailTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Not confirmed email.
-        /// </summary>
-        public static string NotConfirmedEmail {
-            get {
-                return ResourceManager.GetString("NotConfirmedEmail", resourceCulture);
-            }
-        }
     }
 }

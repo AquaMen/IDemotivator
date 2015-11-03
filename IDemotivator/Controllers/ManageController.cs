@@ -7,9 +7,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IDemotivator.Models;
+using IDemotivator.Filters;
 
 namespace IDemotivator.Controllers
 {
+    [Culture]
     [Authorize]
     public class ManageController : Controller
     {
