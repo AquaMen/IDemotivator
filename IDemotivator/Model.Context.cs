@@ -35,5 +35,6 @@ namespace IDemotivator
         public virtual DbSet<tag_to_dem> tag_to_dem { get; set; }
         public virtual DbSet<rate> rates { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Like> Likes { get; set; }
     }
 }

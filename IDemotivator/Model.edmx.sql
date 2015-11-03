@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/02/2015 16:26:28
+-- Date Created: 11/03/2015 22:05:17
 -- Generated from EDMX file: D:\Itransition\GitInt\IDemotivator\IDemotivator\Model.edmx
 -- --------------------------------------------------
 
@@ -43,6 +43,9 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[AspNetUsers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AspNetUsers];
+GO
 IF OBJECT_ID(N'[dbo].[Demotivators]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Demotivators];
 GO
@@ -165,6 +168,14 @@ CREATE TABLE [dbo].[Comments] (
 );
 GO
 
+-- Creating table 'Likes'
+CREATE TABLE [dbo].[Likes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [AspNetUserId] nvarchar(128)  NOT NULL,
+    [CommentId] int  NOT NULL
+);
+GO
+
 -- Creating table 'AspNetUserRoles'
 CREATE TABLE [dbo].[AspNetUserRoles] (
     [AspNetRoles_Id] nvarchar(128)  NOT NULL,
@@ -233,6 +244,12 @@ GO
 -- Creating primary key on [Id] in table 'Comments'
 ALTER TABLE [dbo].[Comments]
 ADD CONSTRAINT [PK_Comments]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [PK_Likes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -403,6 +420,36 @@ GO
 CREATE INDEX [IX_FK_CommentAspNetUser]
 ON [dbo].[Comments]
     ([AspNetUserId]);
+GO
+
+-- Creating foreign key on [AspNetUserId] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [FK_AspNetUserLike]
+    FOREIGN KEY ([AspNetUserId])
+    REFERENCES [dbo].[AspNetUsers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AspNetUserLike'
+CREATE INDEX [IX_FK_AspNetUserLike]
+ON [dbo].[Likes]
+    ([AspNetUserId]);
+GO
+
+-- Creating foreign key on [CommentId] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [FK_LikeComment]
+    FOREIGN KEY ([CommentId])
+    REFERENCES [dbo].[Comments]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LikeComment'
+CREATE INDEX [IX_FK_LikeComment]
+ON [dbo].[Likes]
+    ([CommentId]);
 GO
 
 -- --------------------------------------------------

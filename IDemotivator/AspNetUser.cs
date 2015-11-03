@@ -23,6 +23,7 @@ namespace IDemotivator
             this.Demotivators = new HashSet<Demotivator>();
             this.rates = new HashSet<rate>();
             this.Comments = new HashSet<Comment>();
+            this.Likes = new HashSet<Like>();
         }
     
         public string Id { get; set; }
@@ -50,5 +51,7 @@ namespace IDemotivator
         public virtual ICollection<rate> rates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Like> Likes { get; set; }
     }
 }

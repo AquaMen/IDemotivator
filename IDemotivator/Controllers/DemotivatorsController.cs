@@ -23,6 +23,16 @@ namespace IDemotivator.Controllers
         private Entities db = new Entities();
 
         // GET: Demotivators
+
+        public ActionResult AutocompleteSearch(string term)
+        {
+            var models = db.tags.Where(a => a.Name.Contains(term))
+                            .Select(a => new { value = a.Name })
+                            .Distinct();
+
+            return Json(models, JsonRequestBehavior.AllowGet);
+        }
+
         public async Task<ActionResult> Index()
         {
            
@@ -48,7 +58,7 @@ namespace IDemotivator.Controllers
         }
 
 
-        public void AddComment(string TextMessange, int IdDem)
+        public JsonResult AddComment(string TextMessange, int IdDem)
         {
             var comment = new Comment();
             comment.Date = DateTime.Now;
@@ -57,7 +67,14 @@ namespace IDemotivator.Controllers
             comment.DemotivatorId = IdDem;
             db.Comments.Add(comment);
             db.SaveChanges();
-
+            var ret = new
+            {
+               
+                UserName = User.Identity.Name,
+                Date = comment.Date.ToString("s"),
+                Text = comment.Text
+            };
+            return Json(ret, JsonRequestBehavior.AllowGet);
         }
 
         [AllowAnonymous]
@@ -102,8 +119,11 @@ namespace IDemotivator.Controllers
             MatchCollection tagi = regular.Matches(Tag);
             var tags =  db.tags.ToList();
             bool flag = false;
+            int ik = 0;
             foreach (var tagses in tagi)
             {
+                ik++;
+                if (ik > 5) break;
                 flag = false;
                 tags = db.tags.ToList();
             foreach (var item in tags)

@@ -16,6 +16,7 @@
     <EntitySet Name="tag_to_dem" EntityType="Model.Store.tag_to_dem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="rates" EntityType="Model.Store.rates" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comments" EntityType="Model.Store.Comments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Likes" EntityType="Model.Store.Likes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AspNetUserRoles" EntityType="Model.Store.AspNetUserRoles" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.Store.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -60,6 +61,14 @@
     <AssociationSet Name="CommentAspNetUser" Association="Model.Store.CommentAspNetUser">
       <End Role="Comment" EntitySet="Comments" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserLike" Association="Model.Store.AspNetUserLike">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Like" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="LikeComment" Association="Model.Store.LikeComment">
+      <End Role="Like" EntitySet="Likes" />
+      <End Role="Comment" EntitySet="Comments" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
@@ -165,6 +174,14 @@
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="DemotivatorId" Type="int" Nullable="false" />
     <Property Name="AspNetUserId" Type="nvarchar" Nullable="false" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="Likes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AspNetUserId" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="CommentId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="AspNetUserRoles">
     <Key>
@@ -286,6 +303,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="AspNetUserLike">
+    <End Role="AspNetUser" Type="Model.Store.AspNetUsers" Multiplicity="1" />
+    <End Role="Like" Type="Model.Store.Likes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Like">
+        <PropertyRef Name="AspNetUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LikeComment">
+    <End Role="Like" Type="Model.Store.Likes" Multiplicity="*" />
+    <End Role="Comment" Type="Model.Store.Comments" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Like">
+        <PropertyRef Name="CommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_AspNetUserRoles_AspNetRoles">
     <End Role="AspNetRoles" Type="Model.Store.AspNetRoles" Multiplicity="1" />
     <End Role="AspNetUserRoles" Type="Model.Store.AspNetUserRoles" Multiplicity="*" />
@@ -375,6 +416,7 @@
           <NavigationProperty Name="Demotivators" Relationship="Model.AspNetUserDemotivator" FromRole="AspNetUser" ToRole="Demotivator" />
           <NavigationProperty Name="rates" Relationship="Model.rateAspNetUser" FromRole="AspNetUser" ToRole="rate" />
           <NavigationProperty Name="Comments" Relationship="Model.CommentAspNetUser" FromRole="AspNetUser" ToRole="Comment" />
+          <NavigationProperty Name="Likes" Relationship="Model.AspNetUserLike" FromRole="AspNetUser" ToRole="Like" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -458,6 +500,15 @@
           <AssociationSet Name="CommentAspNetUser" Association="Model.CommentAspNetUser">
             <End Role="Comment" EntitySet="Comments" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Likes" EntityType="Model.Like" />
+          <AssociationSet Name="AspNetUserLike" Association="Model.AspNetUserLike">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Like" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="LikeComment" Association="Model.LikeComment">
+            <End Role="Like" EntitySet="Likes" />
+            <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Demotivator">
@@ -581,6 +632,7 @@
           <Property Name="DemotivatorId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Model.CommentAspNetUser" FromRole="Comment" ToRole="AspNetUser" />
           <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Likes" Relationship="Model.LikeComment" FromRole="Comment" ToRole="Like" />
         </EntityType>
         <Association Name="DemotivatorComment">
           <End Type="Model.Demotivator" Role="Demotivator" Multiplicity="1" />
@@ -603,6 +655,40 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.AspNetUserLike" FromRole="Like" ToRole="AspNetUser" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comment" Relationship="Model.LikeComment" FromRole="Like" ToRole="Comment" />
+          <Property Name="CommentId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="AspNetUserLike">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="Model.Like" Role="Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LikeComment">
+          <End Type="Model.Like" Role="Like" Multiplicity="*" />
+          <End Type="Model.Comment" Role="Comment" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="CommentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -720,6 +806,15 @@
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="DemotivatorId" ColumnName="DemotivatorId" />
           <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Likes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Like)">
+        <MappingFragment StoreEntitySet="Likes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

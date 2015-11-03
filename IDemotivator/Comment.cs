@@ -14,6 +14,12 @@ namespace IDemotivator
     
     public partial class Comment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Comment()
+        {
+            this.Likes = new HashSet<Like>();
+        }
+    
         public int Id { get; set; }
         public string Text { get; set; }
         public System.DateTime Date { get; set; }
@@ -22,5 +28,7 @@ namespace IDemotivator
     
         public virtual Demotivator Demotivator { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Like> Likes { get; set; }
     }
 }
