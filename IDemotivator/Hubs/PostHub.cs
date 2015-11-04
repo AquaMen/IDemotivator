@@ -37,7 +37,7 @@ namespace IDemotivator.Hubs
                                PostedDate = post.Date,
                                PostId = post.Id,
                            }).ToArray();
-                Clients.All.loadPosts(ret);
+                Clients.All.loadPosts(ret, DemId);
             }
         }
 
@@ -62,7 +62,7 @@ namespace IDemotivator.Hubs
                 };
 
                 Clients.Caller.addPost(ret);
-                Clients.Others.newPost(ret);
+                Clients.Others.newPost(ret, DemId1);
             }
         }
 

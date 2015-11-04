@@ -111,9 +111,12 @@ function viewModel() {
     }
 
     //functions called by the Hub
-    self.hub.client.loadPosts = function (data) {
-        var mappedPosts = $.map(data, function (item) { return new Post(item, self.hub); });
-        self.posts(mappedPosts);
+    self.hub.client.loadPosts = function (data, DemId) {
+        var DemId1 = document.getElementById("DemId").value;
+        if (DemId == DemId1) {
+            var mappedPosts = $.map(data, function (item) { return new Post(item, self.hub); });
+            self.posts(mappedPosts);
+        }
     }
 
     self.hub.client.addPost = function (post) {
@@ -121,9 +124,12 @@ function viewModel() {
         self.newMessage('');
     }
 
-    self.hub.client.newPost = function (post) {
-        self.newPosts.splice(-1, 0, new Post(post, self.hub));
-    }
+    self.hub.client.newPost = function (post, DemId1) {
+        var DemId2 = document.getElementById("DemId").value;
+        if (DemId1 == DemId2) {
+            self.newPosts.splice(-1, 0, new Post(post, self.hub));
+        }
+        }
 
     self.hub.client.error = function (err) {
         self.error(err);
