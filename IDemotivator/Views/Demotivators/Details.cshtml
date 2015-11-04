@@ -4,52 +4,42 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container">
+    <h2>Details</h2>
 
-<h2>Details</h2>
-<style>
-    #canvas-container {
-            position: relative;
-                        width: 300px;
-            height: 170px;
-            box-shadow: 0 0 5px 1px black;
-            margin: 10px auto;
-            border: 5px solid transparent;
-        }
-        #canvas-container.over {
-            border: 1px dashed #000000;
-</style>
-<div>
-    <h4>Demotivator</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div>
+        <h4>Demotivator</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-            @Html.EditorFor(model => model.JSON, new { htmlAttributes = new { @class = "form-control", id = "JSON", type = "hidden"} })
-        </dd>
-        
-    </dl>
-    <img src="@Model.Url_Img" />
-    <div id="canvas-container">
-        <canvas id="canvas" width="300" height="250"></canvas>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+                @Html.EditorFor(model => model.JSON, new { htmlAttributes = new { @class = "form-control", id = "JSON", type = "hidden" } })
+            </dd>
+
+        </dl>
+        <img src="@Model.Url_Img" class="col-md-6 col-sm-6 vcenter" />
+        <div class="col-md-6 col-sm-6 vcenter">
+            <div class="tr" style="background-color:#f1f1f1;">
+                <div class="td0">Please rate</div>
+                <div class="td">@Html.Partial("_VoteNow", Model.Id.ToString())</div>
+                @if (Model.Rate is string)
+            {
+                    <div class="td" id="ShowRe">@Html.Partial("_VoteShow", Model.Rate)</div>
+                }
+
+                <div class="td" id="ShowRes">@Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", @Model.Id } })</div>
+
+            </div>
+        </div>
     </div>
-    <div class="tr" style="background-color:#f1f1f1;">
-        <div class="td0">Please rate</div>
-        <div class="td">@Html.Partial("_VoteNow", Model.Id.ToString())</div>
-        @if (Model.Rate is string){
-        <div class="td" id="ShowRe">@Html.Partial("_VoteShow", Model.Rate)</div>
-        }
-        
-        <div class="td" id="ShowRes">@Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id" , @Model.Id}})</div>
-    
-    </div>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
 <script src="~/Scripts/jquery.timeago.js"></script>
 <script src="~/Scripts/fabric.js"></script>
 <script src="~/Scripts/DemoDetail.js"></script>
