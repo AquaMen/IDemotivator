@@ -146,7 +146,6 @@
   </data>
   <data name="IncorrectLoginOrPassword" xml:space="preserve">
     <value>Incorrect login or password</value>
-    <comment>ValidationFormUserLogIn</comment>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
@@ -159,15 +158,12 @@
   </data>
   <data name="MailMessage" xml:space="preserve">
     <value>Confirm your account by clicking:</value>
-    <comment>ValidationFormUserLogIn</comment>
   </data>
   <data name="MailTheme" xml:space="preserve">
     <value>Email Confirmation</value>
-    <comment>ValidationFormUserLogIn</comment>
   </data>
   <data name="NotConfirmedEmail" xml:space="preserve">
     <value>Not confirmed email</value>
-    <comment>ValidationFormUserLogIn</comment>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
