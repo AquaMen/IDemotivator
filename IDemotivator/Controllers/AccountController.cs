@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using Microsoft.Owin.Security;
 using IDemotivator.Models;
 using IDemotivator.App_LocalResources;
 using IDemotivator.Filters;
+using System.Net;
 
 namespace IDemotivator.Controllers
 {
@@ -53,6 +55,62 @@ namespace IDemotivator.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        Entities db = new Entities();
+
+        public Single RateNow( ICollection<Demotivator> demotivators)
+        {
+            
+            int currentVotesCount;
+            int totalNumberOfVotes;
+            int totalVoteCount;
+            Single m_Average = 0;
+            foreach (var item in demotivators)
+            {
+                if (item.rates.Count() == 0)
+                { continue; }
+                currentVotesCount = 0;
+                totalNumberOfVotes = 0;
+                totalVoteCount = 0;
+                int count = 0;
+                if (item.Rate.Length>0)
+                {
+                    count++;
+                    string[] votes = item.Rate.Split(',');
+                    for (int i = 0; i < votes.Length; i++)
+                    {
+                        currentVotesCount = int.Parse(votes[i]);
+                        totalNumberOfVotes = totalNumberOfVotes + currentVotesCount;
+                        totalVoteCount = totalVoteCount + (currentVotesCount * (i + 1));
+                    }
+                    m_Average += totalVoteCount / totalNumberOfVotes / count;
+                }
+              
+            }
+
+            return (m_Average);
+        }
+
+
+        [AllowAnonymous]
+        public async Task<ActionResult> Profile(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetUser user = await db.AspNetUsers.FindAsync(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var demotivators = db.Demotivators.Where(d => d.AspNetUserId == user.Id).ToList();
+            ProfileViewModel User = new ProfileViewModel();
+            User.Demotivator = demotivators;
+            User.User = user;
+            User.Rate = RateNow(demotivators);
+            return View(User);
         }
 
         //

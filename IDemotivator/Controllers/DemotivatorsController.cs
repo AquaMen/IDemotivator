@@ -109,9 +109,6 @@ namespace IDemotivator.Controllers
             tag1.DemotivatorId = DemId;
             tag1.tagId = id;
             db.tag_to_dem.Add(tag1);
-            var tag = db.tags.Find(id);
-            tag.Count++;
-            db.Entry(tag).State = EntityState.Modified;
             db.SaveChanges();
         }
 
@@ -243,11 +240,9 @@ namespace IDemotivator.Controllers
         {
             tag tag1 = new tag();
             tag1 = db.tags.Find(id);
-            tag1.Count--;
-            if (tag1.Count == 0)
+            var count = db.tag_to_dem.Where(ds => ds.tagId == tag1.Id).Count();
+            if (count == 0)
                 db.tags.Remove(tag1);
-            else
-                db.Entry(tag1).State = EntityState.Modified;
         }
 
         public void DeleteTags(int id)
@@ -256,8 +251,9 @@ namespace IDemotivator.Controllers
             var tags = db.tag_to_dem.Where(t => t.DemotivatorId == id).ToList();
             foreach (var item in tags)
             {
-                CheckTag(item.tagId);
                 db.tag_to_dem.Remove(item);
+                CheckTag(item.tagId);
+         
             }
 
         }

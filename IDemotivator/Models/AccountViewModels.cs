@@ -1,9 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace IDemotivator.Models
 {
    
+
+    public class ProfileViewModel
+    {
+        public AspNetUser User { get; set; }
+        public ICollection<Demotivator> Demotivator { get; set; }
+        public Single Rate { get; set; }
+    }
 
     public class LoginViewModel
     {

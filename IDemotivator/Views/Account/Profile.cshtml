@@ -1,0 +1,21 @@
+﻿@using IDemotivator.Models
+@model ProfileViewModel
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/lightbox.css">
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/lightbox.js"></script>
+<h2>@Html.DisplayFor(model => Model.User.UserName)</h2>
+
+<h2>Average Rateing is @Html.DisplayFor(model => Model.Rate)</h2>
+
+<dl class="dl-horizontal">
+    @foreach (var item in Model.Demotivator)
+    {
+
+    <a class="example-image-link" href=@item.Url_Img data-lightbox="example-1"><img class="example-image" src=@item.Url_Img alt="image-1" width="100" height="111" /></a>
+
+    }
+</dl>

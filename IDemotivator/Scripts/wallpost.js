@@ -22,7 +22,7 @@ function Post(data, hub) {
     data = data || {};
     self.PostId = data.PostId;
     self.Message = ko.observable(data.Message || "");
-    self.PostedBy = data.PostedBy || "";
+    self.PostedBy = "/Account/Profile/" + data.PostedBy || "";
     self.PostedByName = data.PostedByName || "";
     self.PostedByAvatar = data.PostedByAvatar || "";
     self.PostedDate = data.PostedDate;

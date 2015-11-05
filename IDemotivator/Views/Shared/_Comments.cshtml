@@ -11,18 +11,25 @@ var UserId = User.Identity.GetUserId();
 
 <ul id="msgHolder" data-bind="foreach: posts">
     <li class="postHolder">
-        <img data-bind="attr: { src: PostedByAvatar }"><p><a data-bind="text: PostedByName"></a>: <span data-bind="    html: Message"></span></p>
+        <img data-bind="attr: { src: PostedByAvatar }"><p><a data-bind="text: PostedByName, attr: {href: PostedBy}"></a>: <span data-bind="    html: Message"></span></p>
         <div class="postFooter">
-            <span class="timeago" data-bind="text: PostedDate"></span>&nbsp;
+            <abbr class="timeago" data-bind="text: PostedDate"></abbr>&nbsp;
         </div>
     </li>
 </ul>
 <div class="notification" data-bind="visible: newPosts().length > 0"><a data-bind="    click: loadNewPosts"> <span data-bind="    text: newPosts().length"></span> new comments(s)</a></div>
+@if (!User.Identity.IsAuthenticated)
+{
+<text>Please <a href="/Account/Login?ReturnUrl=@Request.Url.AbsolutePath" title="Login to comment">Login</a> to comment</text>
+    
+}
+@if (User.Identity.IsAuthenticated)
+{
 <div class="publishContainer">
     <textarea class="msgTextArea" id="txtMessage" data-bind="value: newMessage, jqAutoresize: {}" style="height:3em;" placeholder="Write comment pls..."></textarea>
     <input type="button" data-url="/Wall/SavePost" value="Comment" id="btnShare" data-bind="click: addPost">
 </div>
-
+}
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 <!--Reference the SignalR library. -->
@@ -33,5 +40,6 @@ var UserId = User.Identity.GetUserId();
 <script src="~/Scripts/jquery.timeago.js"></script>
 <script src="~/Scripts/knockout-3.3.0.js"></script>
 <script src="~/Scripts/wallpost.js"></script>
+
 
         

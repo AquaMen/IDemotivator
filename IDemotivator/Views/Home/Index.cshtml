@@ -22,6 +22,13 @@
 
     <h2>@ViewBag.Title.</h2>
     <dl class="dl-horizontal">
+        @if(!User.Identity.IsAuthenticated)
+        {
+        <text>Please <a href="/Account/Login?ReturnUrl=/Demotivators/Create" title="Login to create">Login</a> to create</text>
+        }
+        else{
+        <a href="/Demotivators/Create">Create Demotivator</a>
+        }
        @foreach (var item in Model.demotivators)
        {
 
@@ -34,7 +41,7 @@
                 <div id="tags">
                     @foreach (var t in Model.tags ) {
 
-                    @Html.ActionLink(t.Name, "SearchResult", "Demotivators", new { @id=t.Id}, new { @class = Model.GetTagClass(t.Count, Model.DemCount), @title = "Найдено демотиваторов: " + t.Count });
+                    @Html.ActionLink(t.Name, "SearchResult", "Demotivators", new { @id=t.Id}, new { @title = "Найдено демотиваторов: " });
                     <b> </b>
                     }
                 </div>
