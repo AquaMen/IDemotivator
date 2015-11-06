@@ -3,6 +3,7 @@
     @{
     ViewBag.Title = Resources.Resource.HomePage;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var a = "";
     }
 
 <style>
@@ -31,8 +32,9 @@
         }
        @foreach (var item in Model.demotivators)
        {
+       a = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
 
-        <a class="example-image-link" href=@item.Url_Img data-lightbox="example-1"><img class="example-image" src=@item.Url_Img alt="image-1" width="100" height="111"/></a>
+        <a class="example-image-link" href=@item.Url_Img title="@a" data-lightbox="example-1"><img class="example-image" src=@item.Url_Img alt="image-1" width="100" height="111" /></a>
 
        }
         <div class="panel panel-default col-md-offset-8">
