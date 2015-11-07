@@ -98,11 +98,15 @@
       return false;
     });
 
-    this.$lightbox.hide().on('click', function(event) {
+    this.$lightbox.hide().on('click', function (event) {
+        var flag = false;
       if ($(event.target).attr('id') === 'lightbox') {
-        self.end();
+          self.end();
+          flag = true;
       }
       return true;
+
+      
     });
 
     this.$outerContainer.on('click', function(event) {

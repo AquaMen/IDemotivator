@@ -103,8 +103,8 @@ namespace IDemotivator.Hubs
                     PostId = post.Id
                 };
 
-                Clients.Caller.addPost(ret);
-                Clients.Others.newPost(ret, DemId1);
+                Clients.Caller.addPost(ret, DemId1);
+                Clients.Others.addPost(ret, DemId1);
             }
         }
 

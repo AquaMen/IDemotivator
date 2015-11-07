@@ -119,9 +119,12 @@ function viewModel() {
         }
     }
 
-    self.hub.client.addPost = function (post) {
-        self.posts.push(new Post(post, self.hub));
-        self.newMessage('');
+    self.hub.client.addPost = function (post, demid) {
+        var DemId1 = document.getElementById("DemId").value;
+        if (demid == DemId1) {
+            self.posts.push(new Post(post, self.hub));
+            self.newMessage('');
+        }
     }
 
     self.hub.client.newPost = function (post, DemId1) {
