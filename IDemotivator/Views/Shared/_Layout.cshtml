@@ -6,8 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+      </head>
 
-</head>
 <body>
     @using (Html.BeginForm("ChangeCulture", "Home"))
     {
@@ -33,6 +33,29 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(@Resources.Resource.Home, "Index", "Home")</li>
                 </ul>
+
+
+                <form class="navbar-form col-md-3" role="search" action="/Search/Index">
+                    <div class="input-group">
+                        <input  id="autocompletes" type="text" name="r" class="form-control pull-right" style=" margin-right: 35px, border: 1px solid black; background-color: #e5e5e5;" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button type="reset" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove">
+                                    <span class="sr-only">Close</span>
+                                </span>
+                            </button>
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search">
+                                    <span class="sr-only">Search</span>
+                                </span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+
+
+
+                
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -45,8 +68,46 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-</body>
+    <link href="~/Content/css/custom-theme/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.4.custom.js"></script>
+    <style>
+        .ui-autocomplete 
+        {
+           z-index: 2000;
+        }
+    </style>
+    <script type="text/javascript">
+        var items;
+        $(document).ready(function() {
+          $("#autocompletes").autocomplete({
+              source: function(request, response) {
+                  var term = request.term
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Search", "Search")",
+                        traditional: true,
+                        data: {term},
+                        success: function (data)
+                        {
+                            var itemArray = new Array();
+                            for (i = 0; i < data.length; i++)
+                            {
+                                itemArray[i] = { label: data[i].Name, value: data[i].Name}
+                            }
+                            response(itemArray);
+                        },
+                        error: function (data, type)
+                        {
+                            console.log(type);
+                        }
+                    });
+                },
+            });
+        });
+    </script>
+
+        </body>
 </html>

@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using IDemotivator.Models;
 using IDemotivator.Filters;
+using Nest;
 
 namespace IDemotivator.Controllers
 {
