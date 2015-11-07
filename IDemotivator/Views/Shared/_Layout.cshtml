@@ -35,23 +35,7 @@
                 </ul>
 
 
-                <form class="navbar-form col-md-3" role="search" action="/Search/Index">
-                    <div class="input-group">
-                        <input  id="autocompletes" type="text" name="r" class="form-control pull-right" style=" margin-right: 35px, border: 1px solid black; background-color: #e5e5e5;" placeholder="Search">
-                        <span class="input-group-btn">
-                            <button type="reset" class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove">
-                                    <span class="sr-only">Close</span>
-                                </span>
-                            </button>
-                            <button type="submit" class="btn btn-default">
-                                <span class="glyphicon glyphicon-search">
-                                    <span class="sr-only">Search</span>
-                                </span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
+                
 
 
 
@@ -60,6 +44,23 @@
             </div>
         </div>
     </div>
+    <form class="navbar-form col-md-1" role="search" action="/Search/Index">
+        <div class="input-group">
+            <input id="autocompletes" type="text" name="r" class="form-control pull-right" style=" margin-right: 35px, border: 1px solid black; background-color: #e5e5e5;" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="reset" class="btn btn-default">
+                    <span class="glyphicon glyphicon-remove">
+                        <span class="sr-only">Close</span>
+                    </span>
+                </button>
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search">
+                        <span class="sr-only">Search</span>
+                    </span>
+                </button>
+            </span>
+        </div>
+    </form>
     <div class="container body-content">
         @RenderBody()
         <hr />
