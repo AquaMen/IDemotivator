@@ -1,0 +1,11 @@
+﻿@model IDemotivator.Models.SearchViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+k=ViewData["ff"]
+@foreach (var item in Model.demotivators)
+{
+    @Html.ActionLink(item.Name, "Details", "Demotivators", new { id = item.Id }, null)
+}

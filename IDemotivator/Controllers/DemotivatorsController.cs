@@ -15,6 +15,7 @@ using CloudinaryDotNet.Actions;
 using System.IO;
 using System.Text.RegularExpressions;
 using IDemotivator.Filters;
+using Nest;
 
 namespace IDemotivator.Controllers
 {
@@ -154,6 +155,16 @@ namespace IDemotivator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "JSON,Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator, string newtag)
         {
+
+
+            var uri = new Uri("https://IlwEAOgvDkuHk3yiB74RhwSs1YC0KCUu:@aniknaemm.east-us.azr.facetflow.io");
+            var settings = new ConnectionSettings(uri).SetDefaultIndex("indexdem");
+            var client = new ElasticClient(settings);
+            
+
+            // Execute a search using the connection from above.
+       
+
             if (ModelState.IsValid)
             {
 
@@ -163,6 +174,10 @@ namespace IDemotivator.Controllers
                 db.Demotivators.Add(demotivator);
 
                 db.SaveChanges();
+
+                var index = client.Index(demotivator);
+                client.Refresh();
+               
                 AddTag(newtag, demotivator.Id);
                 return RedirectToAction("Index");
             }
@@ -170,6 +185,8 @@ namespace IDemotivator.Controllers
             ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "Email", demotivator.AspNetUserId);
             return View(demotivator);
         }
+
+
 
         // GET: Demotivators/Edit/5
         public async Task<ActionResult> Edit(int? id)
