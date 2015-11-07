@@ -439,6 +439,7 @@
     <Content Include="Views\Shared\_Comments.cshtml" />
     <Content Include="Views\Demotivators\SearchResult.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

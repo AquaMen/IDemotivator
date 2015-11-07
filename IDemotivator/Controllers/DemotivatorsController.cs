@@ -110,10 +110,27 @@ namespace IDemotivator.Controllers
             tag1.DemotivatorId = DemId;
             tag1.tagId = id;
             db.tag_to_dem.Add(tag1);
-            var tag = db.tags.Find(id);
-            tag.Count++;
-            db.Entry(tag).State = EntityState.Modified;
             db.SaveChanges();
+        }
+
+        public int AddLike(int CommentId)
+        {
+            string UserId = User.Identity.GetUserId();
+            var CheckLike = db.Likes.FirstOrDefault(d => d.CommentId == CommentId && d.AspNetUserId == UserId);
+            if (CheckLike == null)
+            {
+                Like like = new Like();
+                like.CommentId = CommentId;
+                like.AspNetUserId = UserId;
+                db.Likes.Add(like);
+            }
+            else
+            {
+                db.Likes.Remove(CheckLike);
+            }
+            db.SaveChanges();
+            int count = db.Comments.Find(CommentId).Likes.Count();
+            return (count);
         }
 
         public void AddTag (string Tag, int DemId)
@@ -260,11 +277,9 @@ namespace IDemotivator.Controllers
         {
             tag tag1 = new tag();
             tag1 = db.tags.Find(id);
-            tag1.Count--;
-            if (tag1.Count == 0)
+            var count = db.tag_to_dem.Where(ds => ds.tagId == tag1.Id).Count();
+            if (count == 0)
                 db.tags.Remove(tag1);
-            else
-                db.Entry(tag1).State = EntityState.Modified;
         }
 
         public void DeleteTags(int id)
@@ -273,8 +288,9 @@ namespace IDemotivator.Controllers
             var tags = db.tag_to_dem.Where(t => t.DemotivatorId == id).ToList();
             foreach (var item in tags)
             {
-                CheckTag(item.tagId);
                 db.tag_to_dem.Remove(item);
+                CheckTag(item.tagId);
+         
             }
 
         }

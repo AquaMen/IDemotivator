@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/03/2015 22:05:17
+-- Date Created: 11/05/2015 19:52:34
 -- Generated from EDMX file: D:\Itransition\GitInt\IDemotivator\IDemotivator\Model.edmx
 -- --------------------------------------------------
 
@@ -38,14 +38,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CommentAspNetUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_CommentAspNetUser];
 GO
+IF OBJECT_ID(N'[dbo].[FK_AspNetUserLike]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_AspNetUserLike];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LikeComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_LikeComment];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[AspNetUsers]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AspNetUsers];
-GO
 IF OBJECT_ID(N'[dbo].[Demotivators]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Demotivators];
 GO
@@ -61,7 +64,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Comments];
 GO
-
+IF OBJECT_ID(N'[dbo].[Likes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Likes];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -135,8 +140,7 @@ GO
 -- Creating table 'tags'
 CREATE TABLE [dbo].[tags] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [Count] int  NOT NULL
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 

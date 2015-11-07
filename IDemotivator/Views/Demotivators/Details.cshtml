@@ -31,7 +31,7 @@
                     <div class="td" id="ShowRe">@Html.Partial("_VoteShow", Model.Rate)</div>
                 }
 
-                <div class="td" id="ShowRes">@Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", @Model.Id } })</div>
+                <div id="ShowRes">@Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", @Model.Id } })</div>
 
             </div>
         </div>
@@ -40,6 +40,5 @@
         @Html.ActionLink("Back to List", "Index")
     </p>
 </div>
-<script src="~/Scripts/jquery.timeago.js"></script>
 <script src="~/Scripts/fabric.js"></script>
 <script src="~/Scripts/DemoDetail.js"></script>
