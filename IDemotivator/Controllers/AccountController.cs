@@ -56,8 +56,35 @@ namespace IDemotivator.Controllers
                 _userManager = value;
             }
         }
-
         Entities db = new Entities();
+
+        public int GetCommentCount(string id)
+        {
+            var demotivators = db.Demotivators.ToList();
+            int count = 0;
+            foreach (var item in demotivators)
+            {
+                count += item.Comments.Where(d => d.AspNetUserId == id).Count();     
+            }
+            return (count);
+        }
+        
+
+        public int GetLikeCount(string id)
+        {
+            var demotivators = db.Demotivators.ToList();
+            int count = 0;
+            foreach (var item in demotivators)
+            {
+                foreach (var item1 in item.Comments.Where(d=> d.AspNetUserId == id))
+                {
+
+                    count += item1.Likes.Count();
+                }
+            }
+
+            return (count);
+        }
 
         public Single RateNow( ICollection<Demotivator> demotivators)
         {
@@ -66,6 +93,8 @@ namespace IDemotivator.Controllers
             int totalNumberOfVotes;
             int totalVoteCount;
             Single m_Average = 0;
+            int count = 0;
+            Single Average = 0;
             foreach (var item in demotivators)
             {
                 if (item.rates.Count() == 0)
@@ -73,7 +102,7 @@ namespace IDemotivator.Controllers
                 currentVotesCount = 0;
                 totalNumberOfVotes = 0;
                 totalVoteCount = 0;
-                int count = 0;
+                
                 if (item.Rate.Length>0)
                 {
                     count++;
@@ -84,12 +113,17 @@ namespace IDemotivator.Controllers
                         totalNumberOfVotes = totalNumberOfVotes + currentVotesCount;
                         totalVoteCount = totalVoteCount + (currentVotesCount * (i + 1));
                     }
-                    m_Average += totalVoteCount / totalNumberOfVotes / count;
+                    m_Average = totalVoteCount / totalNumberOfVotes;
                 }
+                Average += m_Average;
               
             }
-
-            return (m_Average);
+            
+            if (Average != 0)
+            {
+                Average /= count;
+            }
+            return (Average);
         }
 
 
@@ -110,6 +144,8 @@ namespace IDemotivator.Controllers
             User.Demotivator = demotivators;
             User.User = user;
             User.Rate = RateNow(demotivators);
+            User.LikeCount = GetLikeCount(id);
+            User.CommentCount = GetCommentCount(id);
             return View(User);
         }
 

@@ -11,6 +11,8 @@ namespace IDemotivator.Models
         public AspNetUser User { get; set; }
         public ICollection<Demotivator> Demotivator { get; set; }
         public Single Rate { get; set; }
+        public int LikeCount { get; set; }
+        public int CommentCount { get; set; }
     }
 
     public class LoginViewModel
