@@ -30,13 +30,21 @@ function Post(data, hub) {
     self.PostComments = ko.observableArray();
     self.NewComments = ko.observableArray();
     self.newCommentMessage = ko.observable();
+    self.LikeCount = data.LikeCount;
     self.hub = hub;
-    self.addComment = function () {
-        self.hub.server.addComment({ "PostId": self.PostId, "Message": self.newCommentMessage() }).done(function (comment) {
-            self.PostComments.push(new Comment(comment));
-            self.newCommentMessage('');
-        }).fail(function (err) {
-            self.error(err);
+    self.addLike = function () {
+        var formData = new FormData;
+        formData.append("CommentId", self.PostId)
+        $.ajax({
+            async: false,
+            url: '/Demotivators/AddLike',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                document.getElementById(self.PostId).textContent = data;
+            }
         });
     }
 
@@ -95,6 +103,7 @@ function viewModel() {
             self.error(err);
         });
     }
+
 
     self.addPost = function () {
         self.error(null);

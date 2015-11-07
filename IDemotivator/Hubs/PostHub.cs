@@ -77,6 +77,7 @@ namespace IDemotivator.Hubs
                                PostedByAvatar = imgFolder +  defaultAvatar,
                                PostedDate = TimeAgo(post.Date),
                                PostId = post.Id,
+                               LikeCount = post.Likes.Count()
                            }).ToArray();
                 Clients.All.loadPosts(ret, DemId);
             }
@@ -100,7 +101,8 @@ namespace IDemotivator.Hubs
                     PostedByName = usr.UserName,
                     PostedByAvatar = imgFolder +  defaultAvatar,
                     PostedDate = TimeAgo(post.Date),
-                    PostId = post.Id
+                    PostId = post.Id,
+                    LikeCount = post.Likes.Count()
                 };
 
                 Clients.Caller.addPost(ret, DemId1);

@@ -11,11 +11,10 @@ var UserId = User.Identity.GetUserId();
 <ul id="msgHolder" data-bind="foreach: posts" style="width: inherit">
         <li class="postHolder">
             <img data-bind="attr: { src: PostedByAvatar }"><p><a id="lightbox" data-bind="text: PostedByName, attr: {href: PostedBy}"></a>: <span data-bind="    html: Message"></span></p>
-            <div class="postFooter">
-                <abbr class="timeago" data-bind="text: PostedDate"></abbr>&nbsp;
+            <div class="postFooter" style="width: inherit;">
+                <abbr class="timeago" data-bind="text: PostedDate"></abbr><div style="display: inline; float: right"><input type="button" id="Like" data-bind="name: PostId, click: addLike" value="Like" /><span  class="like_count" data-bind="text: LikeCount, attr: {id: PostId}"></span></div>
             </div>
         </li>
-        
 </ul>
 <div class="notification" data-bind="visible: newPosts().length > 0"><a data-bind="    click: loadNewPosts"> <span data-bind="    text: newPosts().length"></span> new comments(s)</a></div>
 @if (!User.Identity.IsAuthenticated)

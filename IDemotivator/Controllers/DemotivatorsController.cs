@@ -112,6 +112,26 @@ namespace IDemotivator.Controllers
             db.SaveChanges();
         }
 
+        public int AddLike(int CommentId)
+        {
+            string UserId = User.Identity.GetUserId();
+            var CheckLike = db.Likes.FirstOrDefault(d => d.CommentId == CommentId && d.AspNetUserId == UserId);
+            if (CheckLike == null)
+            {
+                Like like = new Like();
+                like.CommentId = CommentId;
+                like.AspNetUserId = UserId;
+                db.Likes.Add(like);
+            }
+            else
+            {
+                db.Likes.Remove(CheckLike);
+            }
+            db.SaveChanges();
+            int count = db.Comments.Find(CommentId).Likes.Count();
+            return (count);
+        }
+
         public void AddTag (string Tag, int DemId)
         {
             Regex regular = new Regex(@"\w+");
