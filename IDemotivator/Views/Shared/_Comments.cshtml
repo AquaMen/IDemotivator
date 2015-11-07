@@ -4,18 +4,18 @@
 @{
 var UserId = User.Identity.GetUserId();
 }
-    <link href="~/Content/comments.css" rel="stylesheet" type="text/css">
-                      <script src="~/Scripts/jquery.timeago.js" type="text/javascript"></script>
-        <input type="hidden" value="@ViewData["id"]" id="DemId" />
-        <input type="hidden" value="@UserId" id="UserId" />
-
-<ul id="msgHolder" data-bind="foreach: posts">
-    <li class="postHolder">
-        <img data-bind="attr: { src: PostedByAvatar }"><p><a data-bind="text: PostedByName, attr: {href: PostedBy}"></a>: <span data-bind="    html: Message"></span></p>
-        <div class="postFooter">
-            <abbr class="timeago" data-bind="text: PostedDate"></abbr>&nbsp;
-        </div>
-    </li>
+<link href="~/Content/comments.css" rel="stylesheet" type="text/css">
+<script src="~/Scripts/jquery.timeago.js" type="text/javascript"></script>
+<input type="hidden" value="@ViewData["id"]" id="DemId" />
+<input type="hidden" value="@UserId" id="UserId" />
+<ul id="msgHolder" data-bind="foreach: posts" style="width: inherit">
+        <li class="postHolder">
+            <img data-bind="attr: { src: PostedByAvatar }"><p><a id="lightbox" data-bind="text: PostedByName, attr: {href: PostedBy}"></a>: <span data-bind="    html: Message"></span></p>
+            <div class="postFooter">
+                <abbr class="timeago" data-bind="text: PostedDate"></abbr>&nbsp;
+            </div>
+        </li>
+        
 </ul>
 <div class="notification" data-bind="visible: newPosts().length > 0"><a data-bind="    click: loadNewPosts"> <span data-bind="    text: newPosts().length"></span> new comments(s)</a></div>
 @if (!User.Identity.IsAuthenticated)
@@ -31,7 +31,6 @@ var UserId = User.Identity.GetUserId();
 </div>
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-
 <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
 <script src="~/signalr/hubs"></script>
 <script src="~/Scripts/jquery.autosize-min.js"></script>

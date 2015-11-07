@@ -31,7 +31,7 @@
                     <div class="td" id="ShowRe">@Html.Partial("_VoteShow", Model.Rate)</div>
                 }
 
-                <div class="td" id="ShowRes">@Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", @Model.Id } })</div>
+                <div id="ShowRes">@Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", @Model.Id } })</div>
 
             </div>
         </div>

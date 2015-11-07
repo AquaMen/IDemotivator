@@ -14,11 +14,17 @@ using System.Web.Mvc;
 using IDemotivator;
 using System.IO;
 using IDemotivator.Filters;
+using System.Globalization;
+using System.Security.Claims;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.Owin.Security;
 
 namespace IDemotivator.Hubs
 {
     public class PostHub : Hub
     {
+
         private string imgFolder = "/images/";
         private string defaultAvatar = "user.png";
         public  string TimeAgo(DateTime dt)
@@ -78,6 +84,7 @@ namespace IDemotivator.Hubs
 
         public void AddPost(Comment post, string UserId, int DemId1)
         {
+
             post.AspNetUserId = UserId;
             post.Date = DateTime.Now;
             post.DemotivatorId = DemId1;
