@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CloudinaryApi" xml:space="preserve">
+    <value>173434464182424</value>
+  </data>
+  <data name="CloudinaryCloud" xml:space="preserve">
+    <value>aniknaemm</value>
+  </data>
+  <data name="CloudinarySecret" xml:space="preserve">
+    <value>p3LleRLwWAxpm9yU3CHT63qKp_E</value>
+  </data>
+  <data name="ElasticNestSite" xml:space="preserve">
+    <value>my_index_site</value>
+  </data>
+  <data name="ElasticNestUri" xml:space="preserve">
+    <value>https://IlwEAOgvDkuHk3yiB74RhwSs1YC0KCUu:@aniknaemm.east-us.azr.facetflow.io</value>
+  </data>
   <data name="GmailLogin" xml:space="preserve">
     <value>Demotivatorme@gmail.com</value>
   </data>

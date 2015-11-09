@@ -61,6 +61,51 @@ namespace IDemotivator.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 173434464182424.
+        /// </summary>
+        public static string CloudinaryApi {
+            get {
+                return ResourceManager.GetString("CloudinaryApi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to aniknaemm.
+        /// </summary>
+        public static string CloudinaryCloud {
+            get {
+                return ResourceManager.GetString("CloudinaryCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to p3LleRLwWAxpm9yU3CHT63qKp_E.
+        /// </summary>
+        public static string CloudinarySecret {
+            get {
+                return ResourceManager.GetString("CloudinarySecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to my_index_site.
+        /// </summary>
+        public static string ElasticNestSite {
+            get {
+                return ResourceManager.GetString("ElasticNestSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://IlwEAOgvDkuHk3yiB74RhwSs1YC0KCUu:@aniknaemm.east-us.azr.facetflow.io.
+        /// </summary>
+        public static string ElasticNestUri {
+            get {
+                return ResourceManager.GetString("ElasticNestUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Demotivatorme@gmail.com.
         /// </summary>
         public static string GmailLogin {

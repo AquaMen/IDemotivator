@@ -19,6 +19,7 @@ using Nest;
 using IDemotivator.Search;
 using PagedList.Mvc;
 using PagedList;
+using IDemotivator.App_LocalResources;
 
 namespace IDemotivator.Controllers
 {
@@ -315,9 +316,9 @@ namespace IDemotivator.Controllers
         public JsonResult Upload()
         {
             Account account = new Account(
-                       "aniknaemm",
-                       "173434464182424",
-                       "p3LleRLwWAxpm9yU3CHT63qKp_E");
+                       GlobalRes.CloudinaryCloud,
+                       GlobalRes.CloudinaryApi,
+                       GlobalRes.CloudinarySecret);
             CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
             List<string> list = new List<string>();
             foreach (string file in Request.Files)

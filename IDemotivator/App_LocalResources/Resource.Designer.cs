@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Демчики.
+        ///   Looks up a localized string similar to Демотиваторы.
         /// </summary>
         public static string ApplicationName {
             get {
@@ -84,6 +84,24 @@ namespace Resources {
         public static string ChooseLang {
             get {
                 return ResourceManager.GetString("ChooseLang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Кликните чтобы зайти.
+        /// </summary>
+        public static string ConfEmailAction {
+            get {
+                return ResourceManager.GetString("ConfEmailAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Спасибо за подтверждение имэйла.
+        /// </summary>
+        public static string ConfEmailView {
+            get {
+                return ResourceManager.GetString("ConfEmailView", resourceCulture);
             }
         }
         
@@ -115,7 +133,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дарова!!!.
+        ///   Looks up a localized string similar to Произошла ошибка.
+        /// </summary>
+        public static string ErrOccured {
+            get {
+                return ResourceManager.GetString("ErrOccured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Привет.
         /// </summary>
         public static string Hello {
             get {
@@ -196,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не авторизированы!.
+        /// </summary>
+        public static string NotAuthenticated {
+            get {
+                return ResourceManager.GetString("NotAuthenticated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Электронная почта не подтверждена.
         /// </summary>
         public static string NotConfirmedEmail {
@@ -205,11 +241,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Звёзд, спасибо.
+        /// </summary>
+        public static string NStars {
+            get {
+                return ResourceManager.GetString("NStars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} должен быть на  {2} символа больше..
+        /// </summary>
+        public static string PassErrorMessage {
+            get {
+                return ResourceManager.GetString("PassErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль и подтверждение не совпадают..
+        /// </summary>
+        public static string PassNotConfirm {
+            get {
+                return ResourceManager.GetString("PassNotConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пароль.
         /// </summary>
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;br /&gt;Вы уже поставили здесь рейтинг, спасибо.
+        /// </summary>
+        public static string PreRate {
+            get {
+                return ResourceManager.GetString("PreRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Такой записи не существует.
+        /// </summary>
+        public static string RecordDNotExist {
+            get {
+                return ResourceManager.GetString("RecordDNotExist", resourceCulture);
             }
         }
         
@@ -241,11 +322,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тэгз.
+        ///   Looks up a localized string similar to Тэги.
         /// </summary>
         public static string Tags {
             get {
                 return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ваш пароль был измёнён.
+        /// </summary>
+        public static string UPassHasChange {
+            get {
+                return ResourceManager.GetString("UPassHasChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;br /&gt; Вы поставили.
+        /// </summary>
+        public static string YouRate {
+            get {
+                return ResourceManager.GetString("YouRate", resourceCulture);
             }
         }
     }

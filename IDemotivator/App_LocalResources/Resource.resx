@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Демчики</value>
+    <value>Демотиваторы</value>
     <comment>HomeController</comment>
   </data>
   <data name="ChooseContry" xml:space="preserve">
@@ -128,6 +128,12 @@
   <data name="ChooseLang" xml:space="preserve">
     <value>Выберите язык</value>
     <comment>HomeController</comment>
+  </data>
+  <data name="ConfEmailAction" xml:space="preserve">
+    <value>Кликните чтобы зайти</value>
+  </data>
+  <data name="ConfEmailView" xml:space="preserve">
+    <value>Спасибо за подтверждение имэйла</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Повторить пароль</value>
@@ -141,8 +147,11 @@
     <value>Электронная почта</value>
     <comment>HomeController</comment>
   </data>
+  <data name="ErrOccured" xml:space="preserve">
+    <value>Произошла ошибка</value>
+  </data>
   <data name="Hello" xml:space="preserve">
-    <value>Дарова!!!</value>
+    <value>Привет</value>
     <comment>HomeController</comment>
   </data>
   <data name="Home" xml:space="preserve">
@@ -171,11 +180,29 @@
   <data name="MailTheme" xml:space="preserve">
     <value>Электронная почта подтверждена</value>
   </data>
+  <data name="NotAuthenticated" xml:space="preserve">
+    <value>Не авторизированы!</value>
+  </data>
   <data name="NotConfirmedEmail" xml:space="preserve">
     <value>Электронная почта не подтверждена</value>
   </data>
+  <data name="NStars" xml:space="preserve">
+    <value>Звёзд, спасибо</value>
+  </data>
+  <data name="PassErrorMessage" xml:space="preserve">
+    <value>{0} должен быть на  {2} символа больше.</value>
+  </data>
+  <data name="PassNotConfirm" xml:space="preserve">
+    <value>Пароль и подтверждение не совпадают.</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
+  </data>
+  <data name="PreRate" xml:space="preserve">
+    <value>&lt;br /&gt;Вы уже поставили здесь рейтинг, спасибо</value>
+  </data>
+  <data name="RecordDNotExist" xml:space="preserve">
+    <value>Такой записи не существует</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>
@@ -187,6 +214,13 @@
     <value>Запомнить?</value>
   </data>
   <data name="Tags" xml:space="preserve">
-    <value>Тэгз</value>
+    <value>Тэги</value>
+    <comment>тут остановка</comment>
+  </data>
+  <data name="UPassHasChange" xml:space="preserve">
+    <value>Ваш пароль был измёнён</value>
+  </data>
+  <data name="YouRate" xml:space="preserve">
+    <value>&lt;br /&gt; Вы поставили</value>
   </data>
 </root>

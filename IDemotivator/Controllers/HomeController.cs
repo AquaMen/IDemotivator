@@ -60,18 +60,6 @@ namespace IDemotivator.Controllers
             return Redirect(returnUrl);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-            return View();
-        }
-
         public JsonResult PreRating(string r, string s, string id, string url)
         {
             int autoId = 0;
@@ -84,7 +72,7 @@ namespace IDemotivator.Controllers
             {
                 HttpCookie cookie = new HttpCookie(url, "true");
                 Response.Cookies.Add(cookie);
-                return Json("<br />You have already rated this post, thanks !");
+                return Json(Resources.Resource.PreRate);
             }
             return Json("");
         }
@@ -117,11 +105,11 @@ namespace IDemotivator.Controllers
             int.TryParse(id, out autoId);
             if (!User.Identity.IsAuthenticated)
             {
-                return Json("Not authenticated!");
+                return Json(Resources.Resource.NotAuthenticated);
             }
             if (autoId.Equals(0))
             {
-                return Json("Sorry, record to vote doesn't exists");
+                return Json(Resources.Resource.RecordDNotExist);
             }
             var CurrentUser = User.Identity.GetUserId();
             var isIt = db.rates.Where(v => v.AspNetUserId == CurrentUser && v.DemotivatorId == autoId).FirstOrDefault();
@@ -129,7 +117,7 @@ namespace IDemotivator.Controllers
                     {
                         HttpCookie cookie = new HttpCookie(url, "true");
                         Response.Cookies.Add(cookie);
-                        return Json("<br />You have already rated this post, thanks !");
+                        return Json(Resources.Resource.PreRate);
                     }
                     var demotivator = db.Demotivators.Where(sc => sc.Id == autoId).FirstOrDefault();
                     if (demotivator != null)
@@ -179,7 +167,7 @@ namespace IDemotivator.Controllers
                         HttpCookie cookie = new HttpCookie(url, "true");
                         Response.Cookies.Add(cookie);
             }
-            return Json("<br />You rated " + r + " star(s), thanks !");
+            return Json(Resources.Resource.YouRate + r + Resources.Resource.NStars);
         }
     }
 }

@@ -126,6 +126,12 @@
   <data name="ChooseLang" xml:space="preserve">
     <value>ChooseLang</value>
   </data>
+  <data name="ConfEmailAction" xml:space="preserve">
+    <value>Click here to Log in</value>
+  </data>
+  <data name="ConfEmailView" xml:space="preserve">
+    <value>Thank you for confirming your email. Please</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>confirm password</value>
   </data>
@@ -134,6 +140,9 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="ErrOccured" xml:space="preserve">
+    <value>An error has occurred.</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
@@ -162,11 +171,29 @@
   <data name="MailTheme" xml:space="preserve">
     <value>Email Confirmation</value>
   </data>
+  <data name="NotAuthenticated" xml:space="preserve">
+    <value>Not authenticated!</value>
+  </data>
   <data name="NotConfirmedEmail" xml:space="preserve">
     <value>Not confirmed email</value>
   </data>
+  <data name="NStars" xml:space="preserve">
+    <value>star(s), thanks !</value>
+  </data>
+  <data name="PassErrorMessage" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long.</value>
+  </data>
+  <data name="PassNotConfirm" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="PreRate" xml:space="preserve">
+    <value>&lt;br /&gt;You have already rated this post, thanks</value>
+  </data>
+  <data name="RecordDNotExist" xml:space="preserve">
+    <value>Sorry, record to vote doesn't exists</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
@@ -179,5 +206,12 @@
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
+    <comment>aaaaa</comment>
+  </data>
+  <data name="UPassHasChange" xml:space="preserve">
+    <value>Your password has been changed.</value>
+  </data>
+  <data name="YouRate" xml:space="preserve">
+    <value>&lt;br /&gt;You rated</value>
   </data>
 </root>
