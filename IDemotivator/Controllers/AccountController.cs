@@ -69,7 +69,6 @@ namespace IDemotivator.Controllers
             }
             return (count);
         }
-        
 
         public int GetLikeCount(string id)
         {
@@ -79,17 +78,14 @@ namespace IDemotivator.Controllers
             {
                 foreach (var item1 in item.Comments.Where(d=> d.AspNetUserId == id))
                 {
-
                     count += item1.Likes.Count();
                 }
             }
-
             return (count);
         }
 
         public Single RateNow( ICollection<Demotivator> demotivators)
         {
-            
             int currentVotesCount;
             int totalNumberOfVotes;
             int totalVoteCount;
@@ -103,7 +99,6 @@ namespace IDemotivator.Controllers
                 currentVotesCount = 0;
                 totalNumberOfVotes = 0;
                 totalVoteCount = 0;
-                
                 if (item.Rate.Length>0)
                 {
                     count++;
@@ -117,16 +112,13 @@ namespace IDemotivator.Controllers
                     m_Average = totalVoteCount / totalNumberOfVotes;
                 }
                 Average += m_Average;
-              
             }
-            
             if (Average != 0)
             {
                 Average /= count;
             }
             return (Average);
         }
-
 
         [AllowAnonymous]
         public async Task<ActionResult> Profile(string id)
@@ -149,18 +141,14 @@ namespace IDemotivator.Controllers
             User.CommentCount = GetCommentCount(id);
             return View(User);
         }
-
-        //
-        // GET: /Account/Login
+        
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
-        //
-        // POST: /Account/Login
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -188,18 +176,13 @@ namespace IDemotivator.Controllers
             }
             return View(model);
         }
-
        
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -227,8 +210,6 @@ namespace IDemotivator.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -240,11 +221,6 @@ namespace IDemotivator.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
-       
-        
-
-        //
-        // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -252,8 +228,6 @@ namespace IDemotivator.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
-
-        
 
         protected override void Dispose(bool disposing)
         {
@@ -271,10 +245,8 @@ namespace IDemotivator.Controllers
                     _signInManager = null;
                 }
             }
-
             base.Dispose(disposing);
         }
-
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

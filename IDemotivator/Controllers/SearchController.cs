@@ -12,7 +12,6 @@ namespace IDemotivator.Controllers
     public class SearchController : Controller
     {
         private Entities db = new Entities();
-
         public ActionResult Index(string r)
         {
             SearchViewModel model = new SearchViewModel();
@@ -36,13 +35,10 @@ namespace IDemotivator.Controllers
                     }
                 }
             }
-
             model.demotivators = demotivatorList;
             model.User = userList;
             return View(model);
         }
-
-
 
         [HttpPost]
         public JsonResult Search(string term)
@@ -52,7 +48,6 @@ namespace IDemotivator.Controllers
             {
                 var resultDem = elastic.SearchDemotivators(term);
                 var resultUser = elastic.SearchUser(term);
-
                 foreach (var user in resultUser)
                 {
                     jsonka.Add(user.UserName);
@@ -60,11 +55,9 @@ namespace IDemotivator.Controllers
                 foreach (var dem in resultDem) {
                     jsonka.Add(dem.Name);
                 }
-
             }
             jsonka = jsonka.Distinct().ToList();
             return Json(jsonka, JsonRequestBehavior.AllowGet);
         }
-
     }
 }
