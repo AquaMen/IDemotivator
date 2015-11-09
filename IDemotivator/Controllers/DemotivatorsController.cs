@@ -28,8 +28,6 @@ namespace IDemotivator.Controllers
     {
         private Entities db = new Entities();
 
-        // GET: Demotivators
-
         public ActionResult AutocompleteSearch(string term)
         {
             var models = db.tags.Where(a => a.Name.Contains(term))
@@ -39,12 +37,13 @@ namespace IDemotivator.Controllers
             return Json(models, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
-
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
             string CurId = User.Identity.GetUserId();
             var demotivators = await db.Demotivators.Where(d => d.AspNetUserId == CurId).ToListAsync();
-            return View(demotivators);
+            return View(demotivators.ToPagedList(pageNumber, pageSize));
         }
         [AllowAnonymous]
         public async Task<ActionResult> ShowAll(int? page)
@@ -54,9 +53,7 @@ namespace IDemotivator.Controllers
             var demotivators = await db.Demotivators.ToListAsync();
             return View(demotivators.ToPagedList(pageNumber, pageSize));
         }
-
-
-        // GET: Demotivators/Details/5
+        
         [AllowAnonymous]
         public async Task<ActionResult> Details(int? id)
         {
@@ -72,7 +69,6 @@ namespace IDemotivator.Controllers
             return View(demotivator);
         }
 
-
         public JsonResult AddComment(string TextMessange, int IdDem)
         {
             var comment = new Comment();
@@ -84,7 +80,6 @@ namespace IDemotivator.Controllers
             db.SaveChanges();
             var ret = new
             {
-
                 UserName = User.Identity.Name,
                 Date = comment.Date.ToString("s"),
                 Text = comment.Text
@@ -104,12 +99,10 @@ namespace IDemotivator.Controllers
                 {
                     demotivators.Add(item1);
                 }
-
             }
             return View(demotivators);
         }
 
-        // GET: Demotivators/Create
         public ActionResult Create()
         {
             ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "Email");
@@ -177,9 +170,6 @@ namespace IDemotivator.Controllers
             }
         }
 
-        // POST: Demotivators/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "JSON,Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator, string newtag)
@@ -201,9 +191,6 @@ namespace IDemotivator.Controllers
             return View(demotivator);
         }
 
-
-
-        // GET: Demotivators/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -219,9 +206,6 @@ namespace IDemotivator.Controllers
             return View(demotivator);
         }
 
-        // POST: Demotivators/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "JSON,Id,AspNetUserId,Name,Date,Url_Img,Url_Img_Origin,Str1,Str2")] Demotivator demotivator)
@@ -238,7 +222,6 @@ namespace IDemotivator.Controllers
             return View(demotivator);
         }
 
-        // GET: Demotivators/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -292,15 +275,12 @@ namespace IDemotivator.Controllers
 
         public void DeleteTags(int id)
         {
-
             var tags = db.tag_to_dem.Where(t => t.DemotivatorId == id).ToList();
             foreach (var item in tags)
             {
                 db.tag_to_dem.Remove(item);
                 CheckTag(item.tagId);
-
             }
-
         }
 
         public void DeleteAdds(int id)
@@ -310,20 +290,16 @@ namespace IDemotivator.Controllers
             DeleteTags(id);
         }
 
-        // POST: Demotivators/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            
-
             Demotivator demotivator = await db.Demotivators.FindAsync(id);
             if(User.Identity.GetUserId() != demotivator.AspNetUserId)
             {
                 return RedirectToAction("Index", "Home");
             }
             DeleteAdds(id);
-
             db.Demotivators.Remove(demotivator);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -336,25 +312,18 @@ namespace IDemotivator.Controllers
                        "aniknaemm",
                        "173434464182424",
                        "p3LleRLwWAxpm9yU3CHT63qKp_E");
-
             CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
-
             List<string> list = new List<string>();
-   
-
             foreach (string file in Request.Files)
             {
                 if (Request.Files[file] != null)
                     list.Add(UploadImage(Request.Files[file], cloudinary));
             }
-
-
             foreach (string file in Request.Form)
             {
                 if (Request.Form[file] != null)
                     list.Add(UploadImageFabricJS(Request.Form[file], cloudinary));
             }
-            
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -389,9 +358,6 @@ namespace IDemotivator.Controllers
             System.IO.File.Delete(Server.MapPath("~/image.png"));
             return uploadResult.Uri.ToString();
         }
-
-
-
 
         protected override void Dispose(bool disposing)
         {

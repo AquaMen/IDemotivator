@@ -14,7 +14,6 @@ namespace IDemotivator.Models
         public bool BrowserRemembered { get; set; }
     }
 
-
     public class ChangePasswordViewModel
     {
         [Required]

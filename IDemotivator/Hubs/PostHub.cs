@@ -23,10 +23,56 @@ namespace IDemotivator.Hubs
 {
     public class PostHub : Hub
     {
-
         private string imgFolder = "/images/";
         private string defaultAvatar = "user.png";
-        public  string TimeAgo(DateTime dt)
+
+        public void GetPosts(int DemId)
+        {
+            using (Entities db = new Entities())
+            {
+                var ret = (from post in db.Comments.Where(d => d.DemotivatorId == DemId).ToList()
+                           orderby post.Date
+                           select new
+                           {
+                               Message = post.Text,
+                               PostedBy = post.AspNetUserId,
+                               PostedByName = post.AspNetUser.UserName,
+                               PostedByAvatar = imgFolder +  defaultAvatar,
+                               PostedDate = TimeAgo(post.Date),
+                               PostId = post.Id,
+                               LikeCount = post.Likes.Count()
+                           }).ToArray();
+                Clients.All.loadPosts(ret, DemId);
+            }
+        }
+
+        public void AddPost(Comment post, string UserId, int DemId1)
+        {
+            post.AspNetUserId = UserId;
+            post.Date = DateTime.Now;
+            post.DemotivatorId = DemId1;
+            post.Text = HttpUtility.HtmlEncode(post.Text);
+            using (Entities db = new Entities())
+            {
+                db.Comments.Add(post);
+                db.SaveChanges();
+                var usr = db.AspNetUsers.FirstOrDefault(x => x.Id == post.AspNetUserId);
+                var ret = new
+                {
+                    Message = post.Text,
+                    PostedBy = post.AspNetUserId,
+                    PostedByName = usr.UserName,
+                    PostedByAvatar = imgFolder +  defaultAvatar,
+                    PostedDate = TimeAgo(post.Date),
+                    PostId = post.Id,
+                    LikeCount = post.Likes.Count()
+                };
+                Clients.Caller.addPost(ret, DemId1);
+                Clients.Others.addPost(ret, DemId1);
+            }
+        }
+
+        public string TimeAgo(DateTime dt)
         {
             TimeSpan span = DateTime.Now - dt;
             if (span.Days > 365)
@@ -60,56 +106,5 @@ namespace IDemotivator.Hubs
                 return "just now";
             return string.Empty;
         }
-
-
-        public void GetPosts(int DemId)
-        {
-            using (Entities db = new Entities())
-            {
-                var ret = (from post in db.Comments.Where(d => d.DemotivatorId == DemId).ToList()
-                           orderby post.Date
-                           select new
-                           {
-                               Message = post.Text,
-                               PostedBy = post.AspNetUserId,
-                               PostedByName = post.AspNetUser.UserName,
-                               PostedByAvatar = imgFolder +  defaultAvatar,
-                               PostedDate = TimeAgo(post.Date),
-                               PostId = post.Id,
-                               LikeCount = post.Likes.Count()
-                           }).ToArray();
-                Clients.All.loadPosts(ret, DemId);
-            }
-        }
-
-        public void AddPost(Comment post, string UserId, int DemId1)
-        {
-
-            post.AspNetUserId = UserId;
-            post.Date = DateTime.Now;
-            post.DemotivatorId = DemId1;
-            post.Text = HttpUtility.HtmlEncode(post.Text);
-            using (Entities db = new Entities())
-            {
-                db.Comments.Add(post);
-                db.SaveChanges();
-                var usr = db.AspNetUsers.FirstOrDefault(x => x.Id == post.AspNetUserId);
-                var ret = new
-                {
-                    Message = post.Text,
-                    PostedBy = post.AspNetUserId,
-                    PostedByName = usr.UserName,
-                    PostedByAvatar = imgFolder +  defaultAvatar,
-                    PostedDate = TimeAgo(post.Date),
-                    PostId = post.Id,
-                    LikeCount = post.Likes.Count()
-                };
-
-                Clients.Caller.addPost(ret, DemId1);
-                Clients.Others.addPost(ret, DemId1);
-            }
-        }
-
-        
     }
 }

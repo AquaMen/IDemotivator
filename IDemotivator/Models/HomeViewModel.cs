@@ -37,6 +37,4 @@ namespace IDemotivator.Models
         public int CountOfCategory { get; set; }
         public int TotalArticles { get; set; }
     }
-
-
 }

@@ -52,8 +52,6 @@ namespace IDemotivator.Controllers
             }
         }
 
-        //
-        // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -64,7 +62,6 @@ namespace IDemotivator.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
@@ -77,16 +74,11 @@ namespace IDemotivator.Controllers
             return View(model);
         }
 
-        
-        //
-        // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -109,10 +101,6 @@ namespace IDemotivator.Controllers
             return View(model);
         }
 
-        
-       
-
-
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
@@ -120,7 +108,6 @@ namespace IDemotivator.Controllers
                 _userManager.Dispose();
                 _userManager = null;
             }
-
             base.Dispose(disposing);
         }
 
