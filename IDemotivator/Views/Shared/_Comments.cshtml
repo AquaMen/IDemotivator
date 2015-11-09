@@ -8,6 +8,7 @@ var UserId = User.Identity.GetUserId();
 <script src="~/Scripts/jquery.timeago.js" type="text/javascript"></script>
 <input type="hidden" value="@ViewData["id"]" id="DemId" />
 <input type="hidden" value="@UserId" id="UserId" />
+@Html.AntiForgeryToken()
 <ul id="msgHolder" data-bind="foreach: posts" style="width: inherit">
         <li class="postHolder">
             <img data-bind="attr: { src: PostedByAvatar }"><p><a id="lightbox" data-bind="text: PostedByName, attr: {href: PostedBy}"></a>: <span data-bind="    html: Message"></span></p>

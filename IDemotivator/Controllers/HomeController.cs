@@ -26,9 +26,15 @@ namespace IDemotivator.Controllers
             HomeViewModel home = new HomeViewModel();
             var tags = db.tags.ToList();
             var demotivators = db.Demotivators.Include(s => s.AspNetUser).ToList();
+            var TopNewDemotivators = demotivators.OrderByDescending(d => d.Date).Take(10).ToList();
+            var TopRateDemotivators = demotivators.OrderByDescending(r => r.RateCount).Take(10).ToList();
+            var TopDiscusDemotivators = demotivators.OrderByDescending(d => d.Comments.Count()).Take(10).ToList();
+            home.TopDiscusDemotivators = TopDiscusDemotivators;
+            home.TopDateDemotivators = TopNewDemotivators;
+            home.TopRateDemotivators = TopRateDemotivators;
             home.demotivators = demotivators;
             home.tags = tags;
-            home.DemCount = db.Demotivators.Count();
+            home.DemCount = demotivators.Count();
             return View(home);
             
         }
@@ -92,6 +98,25 @@ namespace IDemotivator.Controllers
             return Json("");
         }
 
+        public float GetRateCount (Demotivator demotivator)
+        {
+            int currentVotesCount = 0;
+            int totalNumberOfVotes = 0;
+            int totalVoteCount = 0;
+            Single Average = 0;
+                if (demotivator.Rate.Length>0)
+                {
+                    string[] votes = demotivator.Rate.Split(',');
+                    for (int i = 0; i < votes.Length; i++)
+                    {
+                        currentVotesCount = int.Parse(votes[i]);
+                        totalNumberOfVotes = totalNumberOfVotes + currentVotesCount;
+                        totalVoteCount = totalVoteCount + (currentVotesCount * (i + 1));
+                    }
+                    Average = (float)totalVoteCount / (float)totalNumberOfVotes;
+                }
+            return (Average);
+        }
 
         public JsonResult SendRating(string r, string s, string id, string url)
         {
@@ -163,6 +188,8 @@ namespace IDemotivator.Controllers
 
                         db.Entry(sch).State = EntityState.Modified;
                         sch.Rate = updatedVotes;
+                        sch.RateCount = GetRateCount(sch);
+                        
                         db.SaveChanges();
 
                         rate vm = new rate()
@@ -172,9 +199,7 @@ namespace IDemotivator.Controllers
                             DemotivatorId = autoId,
                              IsRate = true
                         };
-
                         db.rates.Add(vm);
-
                         db.SaveChanges();
 
                         // keep the school voting flag to stop voting by this member

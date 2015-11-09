@@ -17,6 +17,8 @@ using System.Text.RegularExpressions;
 using IDemotivator.Filters;
 using Nest;
 using IDemotivator.Search;
+using PagedList.Mvc;
+using PagedList;
 
 namespace IDemotivator.Controllers
 {
@@ -44,6 +46,15 @@ namespace IDemotivator.Controllers
             var demotivators = await db.Demotivators.Where(d => d.AspNetUserId == CurId).ToListAsync();
             return View(demotivators);
         }
+        [AllowAnonymous]
+        public async Task<ActionResult> ShowAll(int? page)
+        {
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            var demotivators = await db.Demotivators.ToListAsync();
+            return View(demotivators.ToPagedList(pageNumber, pageSize));
+        }
+
 
         // GET: Demotivators/Details/5
         [AllowAnonymous]
@@ -251,11 +262,21 @@ namespace IDemotivator.Controllers
             }
         }
 
+        public void DeleteLikes(int id)
+        {
+            var likes = db.Likes.Where(t => t.CommentId == id).ToList();
+            foreach(var item in likes)
+            {
+                db.Likes.Remove(item);
+            }
+        }
+
         public void DeleteComments(int id)
         {
             var comments = db.Comments.Where(t => t.DemotivatorId == id).ToList();
             foreach (var item in comments)
             {
+                DeleteLikes(item.Id);
                 db.Comments.Remove(item);
             }
         }
@@ -294,7 +315,13 @@ namespace IDemotivator.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            
+
             Demotivator demotivator = await db.Demotivators.FindAsync(id);
+            if(User.Identity.GetUserId() != demotivator.AspNetUserId)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             DeleteAdds(id);
 
             db.Demotivators.Remove(demotivator);

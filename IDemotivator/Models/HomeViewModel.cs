@@ -10,6 +10,9 @@ namespace IDemotivator.Models
         public ICollection<Demotivator> demotivators { get; set; }
         public ICollection<tag> tags { get; set; }
         public int DemCount { get; set; }
+        public ICollection<Demotivator> TopDateDemotivators { get; set; }
+        public ICollection<Demotivator> TopRateDemotivators { get; set; }
+        public ICollection<Demotivator> TopDiscusDemotivators { get; set; }
         public string GetTagClass(int demotivators, int DemCount)
         {
             var result = (demotivators * 100) / DemCount;

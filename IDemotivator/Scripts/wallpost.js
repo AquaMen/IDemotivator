@@ -109,9 +109,16 @@ function viewModel() {
         self.error(null);
         var DemId1 = document.getElementById("DemId").value;
         var UserId = document.getElementById("UserId").value;
-        self.hub.server.addPost({ "Text": self.newMessage() }, UserId, DemId1).fail(function (err) {
-            self.error(err);
-        });
+        var origin = self.newMessage();
+        var str = origin.replace(/^\s*/, '').replace(/\s*$/, '');
+        if (str.length > 0) {
+            self.hub.server.addPost({ "Text": str }, UserId, DemId1).fail(function (err) {
+                self.error(err);
+            });
+        }
+        else {
+            self.newMessage('');
+        }
     }
 
     self.loadNewPosts = function () {
