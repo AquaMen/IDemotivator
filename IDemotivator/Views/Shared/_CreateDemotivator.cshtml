@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-<ul class="nav navbar-nav navbar-left">
+<ul class="nav navbar-nav navbar-right">
     <li>
         @Html.ActionLink("Create Dem", "Create", "Demotivators")
     </li>
@@ -9,7 +9,7 @@
 }
 else
 {
-<ul class="nav navbar-nav navbar-left">
+<ul class="nav navbar-nav navbar-right">
     <li>@Html.ActionLink("Create Dem", "Login", "Account", new {ReturnUrl = HttpContext.Current.Request.RawUrl},null)</li>
 </ul>
 }

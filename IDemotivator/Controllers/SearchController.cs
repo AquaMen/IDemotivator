@@ -15,6 +15,8 @@ namespace IDemotivator.Controllers
         public ActionResult Index(string r)
         {
             SearchViewModel model = new SearchViewModel();
+            if (r == null || r.Length == 0)
+                return View(model);
             List<Demotivator> demotivatorList = new List<Demotivator>();
             List<ApplicationUser> userList = new List<ApplicationUser>();
             using (var elastic = new elasticsearchNEST())

@@ -300,7 +300,12 @@ namespace IDemotivator.Controllers
                 return RedirectToAction("Index", "Home");
             }
             DeleteAdds(id);
-            db.Demotivators.Remove(demotivator);
+ using (var elastic = new elasticsearchNEST())
+            {
+                elastic.DeleteDem(demotivator);
+            }
+                db.Demotivators.Remove(demotivator);
+
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
