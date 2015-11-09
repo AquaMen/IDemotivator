@@ -1,0 +1,9 @@
+﻿    #canvas-container {
+            position: absolute;
+            top:3%;
+            left: 50%;
+            box-shadow: 0 0 5px 1px black;
+            margin-top:60px;
+        }
+        #canvas-container.over {
+            border: 1px dashed #000000;

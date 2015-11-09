@@ -1,9 +1,11 @@
 ﻿@model IDemotivator.Demotivator
-
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/canvas.css" rel="stylesheet">
+<script src="~/Scripts/fabric.js"></script>
 <h2>Edit</h2>
 @using (Html.BeginForm())
 {
@@ -20,29 +22,20 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+                @Html.EditorFor(model => model.Url_Img, new { htmlAttributes = new { @class = "form-control",type="hidden" } })
+                @Html.EditorFor(model => model.Url_Img_Origin, new { htmlAttributes = new { @class = "form-control", type="hidden" } })
+        @Html.EditorFor(model => model.JSON, new { htmlAttributes = new { @class = "form-control", type="hidden" } })
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Url_Img, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Url_Img, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Url_Img, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Url_Img_Origin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Url_Img_Origin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Url_Img_Origin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Str1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="control-label col-md-2"><b>@Html.DisplayName("Top Line")</b></div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Str1, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Str1, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Str2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="control-label col-md-2">@Html.DisplayName("Bot Line")</div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Str2, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Str2, "", new { @class = "text-danger" })
@@ -54,6 +47,9 @@
             </div>
         </div>
     </div>
+<div id="canvas-container">
+    <canvas id="canvas"></canvas>
+</div>
 }
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -61,3 +57,4 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script src="~/Scripts/DemoCreate.js"></script>
