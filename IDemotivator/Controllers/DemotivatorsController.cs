@@ -238,7 +238,6 @@ namespace IDemotivator.Controllers
             return View(demotivator);
         }
 
-        // GET: Demotivators/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -324,7 +323,11 @@ namespace IDemotivator.Controllers
             }
             DeleteAdds(id);
 
-            db.Demotivators.Remove(demotivator);
+            using (var elastic = new elasticsearchNEST())
+            {
+                elastic.DeleteDem(demotivator);
+            }
+                db.Demotivators.Remove(demotivator);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
