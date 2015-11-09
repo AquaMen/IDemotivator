@@ -1,15 +1,47 @@
 ﻿@model IDemotivator.Models.SearchViewModel
 @{
     ViewBag.Title = "Index";
+    string comments, votenow, voteshow;
 }
-
-<h2>Index</h2>
-@foreach (var item in Model.demotivators)
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="~/Content/lightbox.css">
+<link rel="stylesheet" href="~/Content/HomeImage.css">
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/lightbox.js"></script>
+<h2>Search Result:</h2>
+<hr/>
+@if (Model.User != null && Model.User.Count() != 0)
 {
-    @Html.ActionLink(item.Name, "Details", "Demotivators", new { id = item.Id }, null)
-}
-
-@foreach (var item in Model.User)
-{
+<h1>Users:</h1>
+    foreach (var item in Model.User)
+    {
     @Html.ActionLink(item.UserName, "Profile", "Account", new { id = item.Id }, null)
+    }
+    <hr />
 }
+   @if (Model.demotivators != null && Model.demotivators.Count() != 0)
+    {
+    <h1>Demotivators:</h1>
+        
+
+
+    <div class="container">
+        @foreach (var item in Model.demotivators)
+        {
+        
+        voteshow = "";
+        comments = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
+        votenow = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
+        if (item.Rate is string)
+        {
+        voteshow = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
+        }
+            <div class="col-md-4 col-sm-4 col-xs-6 shine_me" style="text-align: center">
+                <a class="example-image-link" href="@item.Url_Img" data-title="<a href=&quot;/Demotivators/Details/@item.Id&quot; class=&quot;btn btn-default&quot; >Details </a>@votenow@voteshow@comments" data-lightbox="example-1"><img align="middle" class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
+                <i class="shine_effect"></i>
+            </div>
+        }
+    </div>
+          } 
+        
+    

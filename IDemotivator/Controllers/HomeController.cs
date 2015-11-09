@@ -26,9 +26,9 @@ namespace IDemotivator.Controllers
             HomeViewModel home = new HomeViewModel();
             var tags = db.tags.ToList();
             var demotivators = db.Demotivators.Include(s => s.AspNetUser).ToList();
-            var TopNewDemotivators = demotivators.OrderByDescending(d => d.Date).Take(10).ToList();
-            var TopRateDemotivators = demotivators.OrderByDescending(r => r.RateCount).Take(10).ToList();
-            var TopDiscusDemotivators = demotivators.OrderByDescending(d => d.Comments.Count()).Take(10).ToList();
+            var TopNewDemotivators = demotivators.OrderByDescending(d => d.Date).Take(9).ToList();
+            var TopRateDemotivators = demotivators.OrderByDescending(r => r.RateCount).Take(9).ToList();
+            var TopDiscusDemotivators = demotivators.OrderByDescending(d => d.Comments.Count()).Take(9).ToList();
             home.TopDiscusDemotivators = TopDiscusDemotivators;
             home.TopDateDemotivators = TopNewDemotivators;
             home.TopRateDemotivators = TopRateDemotivators;
@@ -78,8 +78,8 @@ namespace IDemotivator.Controllers
             Int16 thisVote = 0;
             Int16.TryParse(r, out thisVote);
             int.TryParse(id, out autoId);
-            var Cir = User.Identity.GetUserId();
-            var isIt = db.rates.Where(v => v.AspNetUserId == Cir && v.DemotivatorId == autoId).FirstOrDefault();
+            var CurrentUser = User.Identity.GetUserId();
+            var isIt = db.rates.Where(v => v.AspNetUserId == CurrentUser && v.DemotivatorId == autoId).FirstOrDefault();
             if (isIt != null)
             {
                 HttpCookie cookie = new HttpCookie(url, "true");
@@ -123,18 +123,18 @@ namespace IDemotivator.Controllers
             {
                 return Json("Sorry, record to vote doesn't exists");
             }
-                      var Cir = User.Identity.GetUserId();
-                    var isIt = db.rates.Where(v => v.AspNetUserId == Cir && v.DemotivatorId == autoId).FirstOrDefault();
+            var CurrentUser = User.Identity.GetUserId();
+            var isIt = db.rates.Where(v => v.AspNetUserId == CurrentUser && v.DemotivatorId == autoId).FirstOrDefault();
                     if (isIt != null)
                     {
                         HttpCookie cookie = new HttpCookie(url, "true");
                         Response.Cookies.Add(cookie);
                         return Json("<br />You have already rated this post, thanks !");
                     }
-                    var sch = db.Demotivators.Where(sc => sc.Id == autoId).FirstOrDefault();
-                    if (sch != null)
+                    var demotivator = db.Demotivators.Where(sc => sc.Id == autoId).FirstOrDefault();
+                    if (demotivator != null)
                     {
-                        object obj = sch.Rate;
+                        object obj = demotivator.Rate;
                         string updatedVotes = string.Empty;
                         string[] votes = null;
                         if (obj != null && obj.ToString().Length > 0)
@@ -163,18 +163,18 @@ namespace IDemotivator.Controllers
                             updatedVotes += ss + ",";
                         }
                         updatedVotes = updatedVotes.Substring(0, updatedVotes.Length - 1);
-                        db.Entry(sch).State = EntityState.Modified;
-                        sch.Rate = updatedVotes;
-                        sch.RateCount = GetRateCount(sch);
+                        db.Entry(demotivator).State = EntityState.Modified;
+                        demotivator.Rate = updatedVotes;
+                        demotivator.RateCount = GetRateCount(demotivator);
                         db.SaveChanges();
-                        rate vm = new rate()
+                        rate viewmodel = new rate()
                         {
                             AspNetUserId = User.Identity.GetUserId(),
                             Count = thisVote,
                             DemotivatorId = autoId,
                              IsRate = true
                         };
-                        db.rates.Add(vm);
+                        db.rates.Add(viewmodel);
                         db.SaveChanges();
                         HttpCookie cookie = new HttpCookie(url, "true");
                         Response.Cookies.Add(cookie);

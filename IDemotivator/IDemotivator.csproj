@@ -339,7 +339,10 @@
     <Content Include="Content\HomeImage.css" />
     <Content Include="Content\jquery-ui-1.8.2.custom.css" />
     <Content Include="Content\lightbox.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Profile.css" />
+    <Content Include="Content\Register.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -455,6 +458,7 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Shared\_CreateDemotivator.cshtml" />
     <Content Include="Views\Demotivators\ShowAll.cshtml" />
+    <Content Include="Views\Shared\_Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,30 +3,17 @@
     @{
     ViewBag.Title = Resources.Resource.HomePage;
     Layout = "~/Views/Shared/_Layout.cshtml";
-    string a, b, c;
+    string comments, votenow, voteshow;
     }
-
-<style>
-
-    .tag1{font-size: 0.8 em}
-    .tag2{font-size: 0.9em}
-    .tag3{font-size: 1em}
-    .tag4{font-size: 1.2em}
-    .tag5{font-size: 1.4em}
-    .tag6{font-size: 1.7em}
-    .tag7{font-size: 2.0em}
-
-</style>
 <link rel="stylesheet" href="~/Content/lightbox.css">
 <link rel="stylesheet" href="~/Content/HomeImage.css">
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/lightbox.js"></script>
-<div class="panel panel-default col-md-offset-8">
+<div class="panel panel-default col-md-offset-8" style="position:fixed; right:0px;width:20%; top:10%;" >
     <div class="panel-heading"> @Resources.Resource.Tags :</div>
     <div class="panel-body">
         <div id="tags">
             @foreach (var t in Model.tags ) {
-
             @Html.ActionLink(t.Name, "SearchResult", "Demotivators", new { @id=t.Id}, new { @title = "Найдено демотиваторов: " });
             <b> </b>
             }
@@ -34,63 +21,59 @@
     </div>
 </div>
 <div class="container">
-    <h2>@ViewBag.Title.</h2>
-    <dl class="dl-horizontal" />
     <h3>Top Date Demotivators</h3>
-    <div class="container" style="border: 3px outset #000000">
-
+    <div class="container">
         @foreach (var item in Model.TopDateDemotivators)
         {
-        c = "";
-        a = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
-        b = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
+        voteshow = "";
+        comments = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
+        votenow = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
         if (item.Rate is string)
         {
-        c = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
+        voteshow = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
         }
         <div class="col-md-4 col-sm-4 col-xs-6 shine_me" style="text-align: center">
-            <a class="example-image-link" href="@item.Url_Img" data-title="@b@c@a" data-lightbox="example-1"><img align="middle" class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
+            <a class="example-image-link" href="@item.Url_Img" data-title="<a href=&quot;/Demotivators/Details/@item.Id&quot; class=&quot;btn btn-default&quot; >Details </a>@votenow@voteshow@comments" data-lightbox="example-1"><img align="middle" class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
             <i class="shine_effect"></i>
         </div>
         }
     </div>
     <dl class="dl-horizontal" />
-    <div class="container" style="border 3px outset #000000">
+    <div class="container">
         <h3>Top Rate Demotivators</h3>
         @foreach (var item in Model.TopRateDemotivators)
         {
-        c = "";
-        a = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
-        b = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
+        voteshow = "";
+        comments = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
+        votenow = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
         if (item.Rate is string)
         {
-        c = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
+        voteshow = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
         }
-        <div class="col-md-4 col-sm-4 col-xs-6 shine_me" align="center">
-            <a class="example-image-link" href="@item.Url_Img" data-title="@b@c@a" data-lightbox="example-1"><img class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
+        <div class="col-md-4 col-sm-4 col-xs-6 shine_me" style="text-align: center">
+            <a class="example-image-link" href="@item.Url_Img" data-title="<a href=&quot;/Demotivators/Details/@item.Id&quot; class=&quot;btn btn-default&quot; >Details </a>@votenow@voteshow@comments" data-lightbox="example-1"><img class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
             <i class="shine_effect"></i>
         </div>
         }
     </div>
     <h3>Top Discus Demotivators</h3>
-    <div class="container" style="border: 3px outset #000000">
+    <div class="container">
 
         @foreach (var item in Model.TopDiscusDemotivators)
         {
-        c = "";
-        a = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
-        b = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
+        voteshow = "";
+        comments = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
+        votenow = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
         if (item.Rate is string)
         {
-        c = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
+        voteshow = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
         }
         <div class="col-md-4 col-sm-4 col-xs-6 shine_me" style="text-align: center">
-            <a class="example-image-link" href="@item.Url_Img" data-title="@b@c@a" data-lightbox="example-1"><img align="middle" class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
+            <a class="example-image-link" href="@item.Url_Img" data-title="<a href=&quot;/Demotivators/Details/@item.Id&quot; class=&quot;btn btn-default&quot; >Details </a>@votenow@voteshow@comments" data-lightbox="example-1"><img align="middle" class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
             <i class="shine_effect"></i>
         </div>
         }
     </div>
 </div>
-   
 </dl>
 

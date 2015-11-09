@@ -12,15 +12,13 @@ namespace IDemotivator.Filters
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
             string cultureName = null;
-            // Получаем куки из контекста, которые могут содержать установленную культуру
             HttpCookie cultureCookie = filterContext.HttpContext.Request.Cookies["lang"];
             if (cultureCookie != null)
                 cultureName = cultureCookie.Value;
             else
                 cultureName = "ru";
 
-            // Список культур
-            List<string> cultures = new List<string>() { "ru", "en", "de" };
+            List<string> cultures = new List<string>() { "ru", "en" };
             if (!cultures.Contains(cultureName))
             {
                 cultureName = "ru";
@@ -31,7 +29,6 @@ namespace IDemotivator.Filters
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //не реализован
         }
     }
 }

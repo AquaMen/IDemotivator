@@ -5,26 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 string a, b, c;
 }
-<style>
-        img {
-      filter: gray;
-      -webkit-filter: grayscale(1); 
-        -webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
-        box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
-    }
-
-    img:hover {
-      filter: none; 
-      -webkit-filter: grayscale(0); 
-
-    }
-</style>
+<link rel="stylesheet" href="~/Content/Profile.css">
 <link rel="stylesheet" href="~/Content/lightbox.css">
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/lightbox.js"></script>
 <h2>@Html.DisplayFor(model => Model.User.UserName)</h2>
-
 <p>Average Rateing is @Html.DisplayFor(model => Model.Rate)</p>
 <p>Like counts: @Html.DisplayFor(model => Model.LikeCount)</p>
 <p>Comments count: @Html.DisplayFor(model => Model.CommentCount)</p>
@@ -44,7 +29,7 @@ string a, b, c;
                     }
                     <div class="col-md-3 col-sm-4 col-xs-6" align="center">
         <p>@item.Name</p>
-                        <a class="example-image-link" href="@item.Url_Img" data-title="@b@c@a" data-lightbox="example-1" style="text-align: center;"><img class="example-image img-responsive" style="margin-bottom:20px;" src="@item.Url_Img" alt="image-1" width="100" height="111" /></a>
+                        <a class="example-image-link" href="@item.Url_Img" data-title="@b@c@a" data-lightbox="example-1" style="text-align: center;"><img class="example-image img-responsive" style="margin-bottom:20px;" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
                     </div>
                     }
                 </div>

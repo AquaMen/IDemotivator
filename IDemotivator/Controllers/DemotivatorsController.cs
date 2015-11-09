@@ -37,17 +37,18 @@ namespace IDemotivator.Controllers
             return Json(models, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
-
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
             string CurId = User.Identity.GetUserId();
             var demotivators = await db.Demotivators.Where(d => d.AspNetUserId == CurId).ToListAsync();
-            return View(demotivators);
+            return View(demotivators.ToPagedList(pageNumber, pageSize));
         }
         [AllowAnonymous]
         public async Task<ActionResult> ShowAll(int? page)
         {
-            int pageSize = 5;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             var demotivators = await db.Demotivators.ToListAsync();
             return View(demotivators.ToPagedList(pageNumber, pageSize));
@@ -110,10 +111,10 @@ namespace IDemotivator.Controllers
 
         public void TagSave(int DemId, int id)
         {
-            tag_to_dem tag1 = new tag_to_dem();
-            tag1.DemotivatorId = DemId;
-            tag1.tagId = id;
-            db.tag_to_dem.Add(tag1);
+            tag_to_dem tag = new tag_to_dem();
+            tag.DemotivatorId = DemId;
+            tag.tagId = id;
+            db.tag_to_dem.Add(tag);
             db.SaveChanges();
         }
 
@@ -160,11 +161,11 @@ namespace IDemotivator.Controllers
                 }
                 if (!flag)
                 {
-                    tag tag2 = new tag();
-                    tag2.Name = tagses.ToString();
-                    db.tags.Add(tag2);
+                    tag tag = new tag();
+                    tag.Name = tagses.ToString();
+                    db.tags.Add(tag);
                     db.SaveChanges();
-                    TagSave(DemId, tag2.Id);
+                    TagSave(DemId, tag.Id);
                 }
             }
         }
@@ -265,11 +266,11 @@ namespace IDemotivator.Controllers
 
         public void CheckTag(int id)
         {
-            tag tag1 = new tag();
-            tag1 = db.tags.Find(id);
-            var count = db.tag_to_dem.Where(ds => ds.tagId == tag1.Id).Count();
+            tag tag = new tag();
+            tag = db.tags.Find(id);
+            var count = db.tag_to_dem.Where(ds => ds.tagId == tag.Id).Count();
             if (count == 0)
-                db.tags.Remove(tag1);
+                db.tags.Remove(tag);
         }
 
         public void DeleteTags(int id)
@@ -299,7 +300,13 @@ namespace IDemotivator.Controllers
                 return RedirectToAction("Index", "Home");
             }
             DeleteAdds(id);
-            db.Demotivators.Remove(demotivator);
+
+ using (var elastic = new elasticsearchNEST())
+            {
+                elastic.DeleteDem(demotivator);
+            }
+                db.Demotivators.Remove(demotivator);
+
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

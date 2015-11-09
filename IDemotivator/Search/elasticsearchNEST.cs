@@ -22,6 +22,8 @@ namespace IDemotivator.Search
 
         public IEnumerable<Demotivator> SearchDemotivators(string term)
         {
+            term = term.Replace("@", " AND ");
+            term = term.Replace(" ", " AND ");
             var result = _context.Search<Demotivator>(q => q
             .Query(f => f
                .QueryString(t => t.Query(term + "*").OnFields(u => u.Name)))
@@ -30,7 +32,9 @@ namespace IDemotivator.Search
         }
 
         public IEnumerable<ApplicationUser> SearchUser(string term)
-        {
+       {
+            term = term.Replace("/[ \t]{ 2,}/ g", " ");
+            term = term.Replace(" ", " AND ");
             term = term.Replace("@"," AND ");
             var result = _context.Search<ApplicationUser>(q => q
             .Index("my_index_site")
@@ -41,20 +45,6 @@ namespace IDemotivator.Search
             );
             return result.Hits.Select(t => t.Source);
         }
-
-
-
-        /*			
-		{
-		  "query": {
-					"query_string": {
-					   "query": "*"
-
-					}
-				}
-		}
-		 */
-
 
         public void Adding(Demotivator demotivator)
         {
@@ -73,18 +63,12 @@ namespace IDemotivator.Search
 
         }
 
-        public void Delete(object user)
+        public void DeleteDem(Demotivator user)
         {
             _context.Delete(user);
             _context.Refresh();
         }
-        /*
-                public void Delete(Demotivator demotivator)
-                {
-                    _context.Delete(demotivator);
-                    _context.Refresh();
-                }
-                */
+
         private bool isDisposed;
         public void Dispose()
         {
