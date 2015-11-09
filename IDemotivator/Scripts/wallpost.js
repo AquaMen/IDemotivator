@@ -43,8 +43,10 @@ function Post(data, hub) {
             contentType: false,
             processData: false,
             success: function (data) {
-                document.getElementById(self.PostId).textContent = data;
-            }
+                if (data != "") {
+                    document.getElementById(self.PostId).textContent = data;
+                }
+                }
         });
     }
 

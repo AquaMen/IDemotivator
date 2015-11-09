@@ -18,7 +18,6 @@ namespace IDemotivator.Search
         }
         private Uri uri;
         private ConnectionSettings Settings;
-        private const string ConnectionString = GlobalRes.ElasticNestUri;
         private readonly ElasticClient _context;
 
         public IEnumerable<Demotivator> SearchDemotivators(string term)
