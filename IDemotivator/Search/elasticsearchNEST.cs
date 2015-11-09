@@ -33,6 +33,8 @@ namespace IDemotivator.Search
 
         public IEnumerable<ApplicationUser> SearchUser(string term)
        {
+            term = term.Replace("/[ \t]{ 2,}/ g", " ");
+            term = term.Replace(" ", " AND ");
             term = term.Replace("@"," AND ");
             var result = _context.Search<ApplicationUser>(q => q
             .Index("my_index_site")
