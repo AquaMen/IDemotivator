@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using IDemotivator.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -16,8 +17,6 @@ using System.IO;
 using IDemotivator.Filters;
 using System.Globalization;
 using System.Security.Claims;
-using System.Web;
-using System.Web.Mvc;
 using Microsoft.Owin.Security;
 
 namespace IDemotivator.Hubs
@@ -89,6 +88,7 @@ namespace IDemotivator.Hubs
             post.AspNetUserId = UserId;
             post.Date = DateTime.Now;
             post.DemotivatorId = DemId1;
+            post.Text = HttpUtility.HtmlEncode(post.Text);
             using (Entities db = new Entities())
             {
                 db.Comments.Add(post);

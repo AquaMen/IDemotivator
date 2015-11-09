@@ -138,6 +138,7 @@
     <Property Name="Str2" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Rate" Type="nvarchar(max)" Nullable="true" />
     <Property Name="JSON" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RateCount" Type="float" Nullable="true" />
   </EntityType>
   <EntityType Name="tags">
     <Key>
@@ -528,6 +529,7 @@
           <Property Name="Rate" Type="String" Nullable="true" />
           <Property Name="JSON" Type="String" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="Model.DemotivatorComment" FromRole="Demotivator" ToRole="Comment" />
+          <Property Name="RateCount" Type="Double" Nullable="true" />
         </EntityType>
         <Association Name="AspNetUserDemotivator">
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -764,6 +766,7 @@
           <ScalarProperty Name="Str2" ColumnName="Str2" />
           <ScalarProperty Name="Rate" ColumnName="Rate" />
           <ScalarProperty Name="JSON" ColumnName="JSON" />
+          <ScalarProperty Name="RateCount" ColumnName="RateCount" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

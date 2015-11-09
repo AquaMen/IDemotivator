@@ -11,6 +11,7 @@ namespace IDemotivator
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Comment
     {
@@ -21,6 +22,7 @@ namespace IDemotivator
         }
     
         public int Id { get; set; }
+        [Required]
         public string Text { get; set; }
         public System.DateTime Date { get; set; }
         public int DemotivatorId { get; set; }

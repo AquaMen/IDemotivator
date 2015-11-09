@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/05/2015 19:52:34
+-- Date Created: 11/08/2015 17:15:39
 -- Generated from EDMX file: D:\Itransition\GitInt\IDemotivator\IDemotivator\Model.edmx
 -- --------------------------------------------------
 
@@ -48,7 +48,6 @@ GO
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
-
 IF OBJECT_ID(N'[dbo].[Demotivators]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Demotivators];
 GO
@@ -67,7 +66,6 @@ GO
 IF OBJECT_ID(N'[dbo].[Likes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Likes];
 GO
-
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
@@ -133,7 +131,8 @@ CREATE TABLE [dbo].[Demotivators] (
     [Str1] nvarchar(max)  NOT NULL,
     [Str2] nvarchar(max)  NOT NULL,
     [Rate] nvarchar(max)  NULL,
-    [JSON] nvarchar(max)  NOT NULL
+    [JSON] nvarchar(max)  NOT NULL,
+    [RateCount] float  NULL
 );
 GO
 

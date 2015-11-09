@@ -11,6 +11,7 @@ namespace IDemotivator
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Demotivator
     {
@@ -21,17 +22,20 @@ namespace IDemotivator
             this.rates = new HashSet<rate>();
             this.Comments = new HashSet<Comment>();
         }
-    
         public int Id { get; set; }
         public string AspNetUserId { get; set; }
+        [Required]
         public string Name { get; set; }
         public System.DateTime Date { get; set; }
         public string Url_Img { get; set; }
         public string Url_Img_Origin { get; set; }
+        [Required]
         public string Str1 { get; set; }
+        [Required]
         public string Str2 { get; set; }
         public string Rate { get; set; }
         public string JSON { get; set; }
+        public Nullable<double> RateCount { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

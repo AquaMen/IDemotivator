@@ -32,14 +32,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(@Resources.Resource.Home, "Index", "Home")</li>
+                    <li>@Html.ActionLink("ShowAll", "ShowAll", "Demotivators")</li>
                 </ul>
-
-
-                
-
-
-
-                
+               @Html.Partial("_CreateDemotivator")
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

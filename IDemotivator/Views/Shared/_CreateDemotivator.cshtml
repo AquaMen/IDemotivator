@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+<ul class="nav navbar-nav navbar-left">
+    <li>
+        @Html.ActionLink("Create Dem", "Create", "Demotivators")
+    </li>
+</ul>
+}
+else
+{
+<ul class="nav navbar-nav navbar-left">
+    <li>@Html.ActionLink("Create Dem", "Login", "Account", new {ReturnUrl = HttpContext.Current.Request.RawUrl},null)</li>
+</ul>
+}
