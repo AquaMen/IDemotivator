@@ -9,9 +9,6 @@ body:after {
   top: 0;
   left: 0;
   z-index: 9999;
-  background-color: black;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  opacity: 0.8;
   display: none;
 }
 
@@ -23,6 +20,8 @@ body:after {
   text-align: center;
   line-height: 0;
   font-weight: normal;
+  background: rgba(0, 0, 0, 0.8);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
 }
 
 .lightbox .lb-image {
@@ -167,7 +166,10 @@ body:after {
 }
 
 .lb-data .lb-details {
-  width: 85%;
+    background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.7;
+  width: 100%;
   float: left;
   text-align: left;
   line-height: 1.1em;

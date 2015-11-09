@@ -10,24 +10,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     string a, b, c;
     }
-    <div class="container">
-        <h2>ShowAll</h2>
-        @foreach (var item in Model)
-        {
-        c = "";
-        a = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
-        b = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
-        if (item.Rate is string)
-        {
-        c = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
-        }
-        <div class="col-md-4 col-sm-4 col-xs-6 shine_me" style="text-align: center">
-            <a class="example-image-link" href=@item.Url_Img data-title="@b@c@a" data-lightbox="example-1"><img align="middle" class="example-image img-responsive" src=@item.Url_Img alt="image-1" width="200" height="222" /></a>
-            <i class="shine_effect"></i>
-        </div>
-        }
-        <br />
-        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+<div class="container">
+    <h2>ShowAll</h2>
+    <div class="row">
+        <div class="container">
+            <div class="row" style="text-align: center">
+                @foreach (var item in Model)
+                {
+                c = "";
+                a = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", @item.Id } }).ToString();
+                b = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
+                if (item.Rate is string)
+                {
+                c = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
+                }
+                <div class="col-md-4 col-sm-4 col-xs-6 shine_me" style="text-align: center">
+                    <a class="example-image-link" href="@item.Url_Img" data-title="@b@c@a" data-lightbox="example-1"><img align="middle" class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
+                    <i class="shine_effect"></i>
+                </div>
+                }
+                <br />
+                Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("ShowAll",  new { page }))
+                @Html.PagedListPager(Model, page => Url.Action("ShowAll",  new { page }))
+            </div>
+        </div>
     </div>
+</div>

@@ -359,6 +359,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\close.png" />
+    <Content Include="images\like.png" />
     <Content Include="images\loading.gif" />
     <Content Include="images\next.png" />
     <Content Include="images\prev.png" />

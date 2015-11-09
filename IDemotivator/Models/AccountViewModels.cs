@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IDemotivator.Models
 {
-   
-
     public class ProfileViewModel
     {
         public AspNetUser User { get; set; }
@@ -38,7 +36,6 @@ namespace IDemotivator.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -50,6 +47,4 @@ namespace IDemotivator.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
-
-  
 }
