@@ -9,16 +9,6 @@
       </head>
 
 <body>
-    @using (Html.BeginForm("ChangeCulture", "Home"))
-    {
-        <select name="lang">
-            <option disabled selected>@Resources.Resource.ChooseLang</option>
-            <option value="ru">Русский</option>
-            <option value="en">English</option>
-        </select>
-        <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
-    }
-
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -33,10 +23,32 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(@Resources.Resource.Home, "Index", "Home")</li>
                 </ul>
-
-
-                
-
+                @using (Html.BeginForm("ChangeCulture", "Home"))
+                {
+                    <select name="lang">
+                        <option disabled selected>@Resources.Resource.ChooseLang</option>
+                        <option value="ru">Русский</option>
+                        <option value="en">English</option>
+                    </select>
+                    <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
+                }
+                <form class="navbar-form col-md-1" role="search" action="/Search/Index">
+                    <div class="input-group">
+                        <input id="autocompletes" type="text" name="r" class="form-control pull-right" style=" margin-right: 35px, border: 1px solid black; background-color: #e5e5e5;" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button type="reset" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove">
+                                    <span class="sr-only">Close</span>
+                                </span>
+                            </button>
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search">
+                                    <span class="sr-only">Search</span>
+                                </span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
 
 
                 
@@ -44,23 +56,7 @@
             </div>
         </div>
     </div>
-    <form class="navbar-form col-md-1" role="search" action="/Search/Index">
-        <div class="input-group">
-            <input id="autocompletes" type="text" name="r" class="form-control pull-right" style=" margin-right: 35px, border: 1px solid black; background-color: #e5e5e5;" placeholder="Search">
-            <span class="input-group-btn">
-                <button type="reset" class="btn btn-default">
-                    <span class="glyphicon glyphicon-remove">
-                        <span class="sr-only">Close</span>
-                    </span>
-                </button>
-                <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-search">
-                        <span class="sr-only">Search</span>
-                    </span>
-                </button>
-            </span>
-        </div>
-    </form>
+    
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -74,10 +70,14 @@
     <link href="~/Content/css/custom-theme/jquery-ui-1.10.4.custom.css" rel="stylesheet">
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery-ui-1.10.4.custom.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.blockUI.js"></script>
     <style>
-        .ui-autocomplete 
-        {
-           z-index: 2000;
+        .ui-autocomplete {
+            z-index: 2000;
+        }
+             .ui-menu  a{
+                 overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
     <script type="text/javascript">
@@ -93,12 +93,7 @@
                         data: {term},
                         success: function (data)
                         {
-                            var itemArray = new Array();
-                            for (i = 0; i < data.length; i++)
-                            {
-                                itemArray[i] = { label: data[i].Name, value: data[i].Name}
-                            }
-                            response(itemArray);
+                            response(data);
                         },
                         error: function (data, type)
                         {

@@ -10,19 +10,22 @@ sizeImgW = undefined
 posImgL  = undefined
 posImgT  = undefined
 rect     = undefined   
-Heigh = window.innerHeight
 IMG = undefined
 
+Heigh = window.innerHeight
+if Heigh< 300
+  Heigh = 300
 
 #start init canvas container
 sizeH = (Heigh / 100) * 80
 sizeW = sizeH * 3 / 4 
-sizeImgH = sizeW - 100
-sizeImgW = sizeH - 220
-posImgL  = 50
-posImgT  = 70
-$('#canvas-container').height( sizeH)
-$('#canvas-container').width( sizeW)
+sizeImgH = sizeH - (sizeH / 4)
+tmpSizez = (sizeH / 20)
+sizeImgW = sizeW - tmpSizez*2.3
+posImgL  = tmpSizez
+posImgT  = sizeH / 30
+$('#canvas-container').height( sizeH )
+$('#canvas-container').width ( sizeW )
 
 #start init fabrick js
 canvas   = new fabric.StaticCanvas("canvas")
@@ -37,7 +40,7 @@ rect = new (fabric.Rect)(
   top : posImgT
   width: sizeImgW
   height: sizeImgH
-  strokeWidth: 8
+  strokeWidth: 10
   stroke: 'white' 
   selectable: false
   )
@@ -46,16 +49,17 @@ string1 = new fabric.IText("Top text",
   fontFamily: "Georgia white"
   fill:'white'
   left: sizeW / 2
+  top:(sizeH/100)*88
   originX: "centre"
   selectable: false
-  fontSize: 50
+  fontSize: 25
   editable: false
   hasRotatingPoint: false
   transparentCorners: false
 )
 
 string2 = new fabric.IText("Bott text",
-  top: sizeH - 130
+  top: (sizeH/100)*80
   fontFamily: "Georgia white"
   fill:'white'
   left: sizeW / 2
@@ -75,10 +79,11 @@ canvas.renderAll()
 patV =->
   sizeW = (Heigh / 100) * 90
   sizeH = sizeW * 12 / 16
-  sizeImgW = sizeW - 140
-  sizeImgH = sizeH - 170
-  posImgL = 70
-  posImgT = 70
+  sizeImgH = sizeH - (sizeH / 4)
+  tmpSizez = (sizeH / 20)
+  sizeImgW = sizeW - tmpSizez*2.3
+  posImgL  = tmpSizez
+  posImgT  = sizeH / 30
   $('#canvas-container').height( sizeH)
   $('#canvas-container').width( sizeW)
   $('#canvas-container').css( { marginTop : "100px"} );
@@ -158,9 +163,19 @@ document.getElementById('Wpattern').onclick = ->
   return
 
 document.getElementById('create').onclick = ->
+  $.blockUI css:
+    border: 'none'
+    padding: '15px'
+    backgroundColor: '#000'
+    '-webkit-border-radius': '10px'
+    '-moz-border-radius': '10px'
+    opacity: .5
+    color: '#fff'
   formData = new FormData
   formData.append 'fileInput', fileIMG
   demotIMG = document.getElementById('canvas').toDataURL();
+  JSONstring = JSON.stringify(canvas)
+  document.getElementById("JSON").value = JSONstring.replace("data:image/png;base64,", "")
   formData.append 'canvas', demotIMG
   $.ajax
     async: false
@@ -170,15 +185,9 @@ document.getElementById('create').onclick = ->
     contentType: false
     processData: false
     success: (data) ->
-      document.getElementById('Url_Img_Origin').setAttribute 'value', data[0].Uri
-      document.getElementById('Url_Img').setAttribute 'value', data[1].Uri
-      canvas.setBackgroundImage data[0].Uri, canvas.renderAll.bind(canvas),
-          originX: 'left'
-          originY: 'top'
+      document.getElementById('Url_Img_Origin').setAttribute 'value', data[0]
+      document.getElementById('Url_Img').setAttribute 'value', data[1]
       return
-  JSONstring = JSON.stringify(canvas)
-  JSONstring = JSONstring.replace("data:image/png;base64,", "")
-  document.getElementById("JSON").value = JSONstring
   return
 
 $('#btnFileUpload').click ->
@@ -196,57 +205,3 @@ $('#btnFileUpload').click ->
     IMG = oImg
     canvas.renderAll()
   return
-
-
-
-  #fabric.Image.fromURL url, (oImg) ->
-  #  left :100
-   # scaleX:  oImg.width = sizeImgW
-  #  scaleY:  oImg.height = sizeImgH
-  #  canvas.add(oImg)
-   # canvas.renderAll()
-  return
-
-
-
-
-#$('#btnFileUpload').click ->
-#  file = undefined
-#  imgsrc = undefined
-#  fileIMG = document.getElementById('fileInput').files[0]
-#  fr = new FileReader
-#  fr.onloadend = fileIMG
-#  fr.readAsDataURL(file);
-#  urlIMG = fileIMG.getAsDataURL();
-#  fabric.Image.fromURL urlIMG, (oImg) ->
-#        canvas.setBackgroundImage oImg
-#        canvas.backgroundImage.width = canvas.getWidth() - 10
-#        canvas.backgroundImage.height = canvas.getHeight() - 10
-#        canvas.renderAll()
-
-
-#document.getElementById('str11').onclick = ->
-#  tempObj = canvasFabric.getActiveObject()
- # srcObj = tempObj.getSrc()
-#  idexEl = srcObj.indefOf("google")
- # if indexEL>-1
-
-
-
-#$('#btnFileUpload').click ->
- # formData = new FormData
- # file = document.getElementById('fileInput').files[0]
- # formData.append 'fileInput', file
- # imgsrc = file.value
- 
-  #$.ajax
-  #  url: '/Demotivators/Upload'
- #   type: 'POST'
-  #  data: formData
- #   contentType: false
- #   processData: false
- #   success: (data) ->
- #     document.getElementById('Url_Img_Origin').setAttribute 'value', data.Uri
-  #    alert data.Uri
-  #    return
-#  return

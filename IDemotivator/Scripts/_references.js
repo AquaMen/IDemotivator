@@ -3,6 +3,7 @@
 /// <reference path="fabric.js" />
 /// <reference path="fabric.require.js" />
 /// <reference path="jquery.autosize-min.js" />
+/// <reference path="jquery.blockui.js" />
 /// <reference path="jquery.signalr-2.2.0.min.js" />
 /// <reference path="jquery.timeago.js" />
 /// <reference path="jquery.validate.js" />

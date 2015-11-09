@@ -8,6 +8,6 @@ namespace IDemotivator.Models
     public class SearchViewModel
     {
         public ICollection<Demotivator> demotivators { get; set; }
-        public ICollection<string> User { get; set; }
+        public ICollection<ApplicationUser> User { get; set; }
     }
 }

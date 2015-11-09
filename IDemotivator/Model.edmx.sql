@@ -49,24 +49,11 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Demotivators]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Demotivators];
-GO
+
 IF OBJECT_ID(N'[dbo].[tags]', 'U') IS NOT NULL
     DROP TABLE [dbo].[tags];
 GO
-IF OBJECT_ID(N'[dbo].[tag_to_dem]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[tag_to_dem];
-GO
-IF OBJECT_ID(N'[dbo].[rates]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[rates];
-GO
-IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Comments];
-GO
-IF OBJECT_ID(N'[dbo].[Likes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Likes];
-GO
+
 
 -- --------------------------------------------------
 -- Creating all tables

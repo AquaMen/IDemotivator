@@ -1,4 +1,5 @@
 ﻿using IDemotivator.Models;
+using IDemotivator.Search;
 using Nest;
 using System;
 using System.Collections.Generic;
@@ -11,61 +12,57 @@ namespace IDemotivator.Controllers
     public class SearchController : Controller
     {
         private Entities db = new Entities();
-        // GET: Search
+
         public ActionResult Index(string r)
         {
-            var uri = new Uri("https://IlwEAOgvDkuHk3yiB74RhwSs1YC0KCUu:@aniknaemm.east-us.azr.facetflow.io");
-            var settings = new ConnectionSettings(uri).SetDefaultIndex("indexdem");
-            var client = new ElasticClient(settings);
-
-            var result = client.Search<Demotivator>(q => q
-            .Query(f => f
-               .QueryString(t => t.Query(r + "*").OnFields(u => u.Name)) || f
-               .QueryString(t => t.Query(r + "*").OnFields(u => u.Str1)))
-
-            );
+            //chek null r
             SearchViewModel model = new SearchViewModel();
-            List<Demotivator> tr = new List<Demotivator>();
-
-
-            foreach (var t in result.Hits)
+            List<Demotivator> demotivatorList = new List<Demotivator>();
+            List<ApplicationUser> userList = new List<ApplicationUser>();
+            using (var elastic = new elasticsearchNEST())
             {
-                
-                var sleep = (Demotivator)t.Source;
-                int temp = new int();
-
-                if (sleep != null)
-                {
-                   
-                    tr.Add(sleep);
+                var demotivators = elastic.SearchDemotivators(r);
+                var users = elastic.SearchUser(r);
+                if (demotivators.Count() != 0) {
+                    foreach (var dem in demotivators) {
+                        demotivatorList.Add(dem);
+                    }
                 }
-                else
-                {
+                if (users.Count() != 0) {
+                    foreach (var user in users)
+                    {
+                        userList.Add(user);
+                    }
                 }
-                
             }
-            model.demotivators = tr;
+
+            model.demotivators = demotivatorList;
+            model.User = userList;
             return View(model);
         }
+
 
 
         [HttpPost]
         public JsonResult Search(string term)
         {
+            List<string> jsonka = new List<string>();
+            using (var elastic = new elasticsearchNEST())
+            {
+                var resultDem = elastic.SearchDemotivators(term);
+                var resultUser = elastic.SearchUser(term);
 
-            var uri = new Uri("https://IlwEAOgvDkuHk3yiB74RhwSs1YC0KCUu:@aniknaemm.east-us.azr.facetflow.io");
-            var settings = new ConnectionSettings(uri).SetDefaultIndex("indexdem");
-            var client = new ElasticClient(settings);
+                foreach (var user in resultUser)
+                {
+                    jsonka.Add(user.UserName);
+                }
+                foreach (var dem in resultDem) {
+                    jsonka.Add(dem.Name);
+                }
 
-            var result = client.Search<Demotivator>(q => q
-            .Query(f => f
-               .QueryString(t => t.Query(term + "*").OnFields(u => u.Name)) || f
-               .QueryString(t => t.Query(term + "*").OnFields(u => u.Str1)))
-
-            );
-
-
-            return Json(result.Hits.Select(t => t.Source), JsonRequestBehavior.AllowGet);
+            }
+            jsonka = jsonka.Distinct().ToList();
+            return Json(jsonka, JsonRequestBehavior.AllowGet);
         }
 
     }

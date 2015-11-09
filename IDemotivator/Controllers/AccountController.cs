@@ -13,6 +13,7 @@ using IDemotivator.Models;
 using IDemotivator.App_LocalResources;
 using IDemotivator.Filters;
 using System.Net;
+using IDemotivator.Search;
 
 namespace IDemotivator.Controllers
 {
@@ -207,23 +208,22 @@ namespace IDemotivator.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                using (var elastic = new elasticsearchNEST())
+                {
+                    elastic.Adding(user);
+                }
                 if (result.Succeeded)
                 {
-                    // генерируем токен для подтверждения регистрации
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // создаем ссылку для подтверждения
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
                                protocol: Request.Url.Scheme);
-                    // отправка письма
                     await UserManager.SendEmailAsync(user.Id, Resources.Resource.MailTheme,
                                Resources.Resource.MailMessage + " <a href=\"" + callbackUrl + "\">here</a>");
                     return View("DisplayEmail");
                 }
                 AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 

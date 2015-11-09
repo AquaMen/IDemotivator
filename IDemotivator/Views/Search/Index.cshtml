@@ -4,8 +4,12 @@
 }
 
 <h2>Index</h2>
-k=ViewData["ff"]
 @foreach (var item in Model.demotivators)
 {
     @Html.ActionLink(item.Name, "Details", "Demotivators", new { id = item.Id }, null)
+}
+
+@foreach (var item in Model.User)
+{
+    @Html.ActionLink(item.UserName, "Profile", "Account", new { id = item.Id }, null)
 }
