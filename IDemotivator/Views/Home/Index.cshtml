@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="~/Content/HomeImage.css">
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/lightbox.js"></script>
-<div class="panel panel-default col-md-offset-8">
+<div class="panel panel-default col-md-offset-8" style="position:fixed; right:0px;width:20%; top:10%;" >
     <div class="panel-heading"> @Resources.Resource.Tags :</div>
     <div class="panel-body">
         <div id="tags">
@@ -34,10 +34,9 @@
     </div>
 </div>
 <div class="container">
-    <h2>@ViewBag.Title.</h2>
-    <dl class="dl-horizontal" />
+ 
     <h3>Top Date Demotivators</h3>
-    <div class="container" style="border: 3px outset #000000">
+    <div class="container">
 
         @foreach (var item in Model.TopDateDemotivators)
         {

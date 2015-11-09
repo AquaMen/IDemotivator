@@ -1,15 +1,45 @@
 ﻿@model IDemotivator.Models.SearchViewModel
 @{
     ViewBag.Title = "Index";
+    string a="", b="", c="";
 }
-
-<h2>Index</h2>
-@foreach (var item in Model.demotivators)
+<h2>Search Result:</h2>
+<hr/>
+@if (Model.User != null && Model.User.Count() != 0)
 {
-    @Html.ActionLink(item.Name, "Details", "Demotivators", new { id = item.Id }, null)
-}
-
-@foreach (var item in Model.User)
-{
+<h1>Users:</h1>
+    foreach (var item in Model.User)
+    {
     @Html.ActionLink(item.UserName, "Profile", "Account", new { id = item.Id }, null)
+    }
+    <hr />
 }
+@{
+
+    if (Model.demotivators != null && Model.demotivators.Count() != 0)
+    {
+    <h1>Demotivators:</h1>
+        foreach (var item in Model.demotivators)
+        {
+
+
+    <div class="container" style="border: 3px outset #000000">
+
+        @{ 
+                c = "";
+                a = Html.Partial("_Comments", item.Comments, new ViewDataDictionary { { "id", item.Id } }).ToString();
+                b = Html.Partial("_VoteNow", item.Id.ToString()).ToString();
+            }
+            @if (item.Rate is string)
+            {
+                c = Html.Partial("_VoteShow", item.Rate.ToString()).ToString();
+            }
+            <div class="col-md-4 col-sm-4 col-xs-6 shine_me" style="text-align: center">
+                <a class="example-image-link" href="@item.Url_Img" data-title="@b@c@a" data-lightbox="example-1"><img align="middle" class="example-image img-responsive" src="@item.Url_Img" alt="image-1" width="200" height="222" /></a>
+                <i class="shine_effect"></i>
+            </div>
+        
+    </div>
+            }
+        }
+    }

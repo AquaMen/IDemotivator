@@ -48,7 +48,7 @@ namespace IDemotivator.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ShowAll(int? page)
         {
-            int pageSize = 5;
+            int pageSize = 6;
             int pageNumber = (page ?? 1);
             var demotivators = await db.Demotivators.ToListAsync();
             return View(demotivators.ToPagedList(pageNumber, pageSize));

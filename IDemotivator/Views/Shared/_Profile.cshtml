@@ -1,0 +1,9 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Profile", "Profile", "Account",new { id=User.Identity.GetUserId() }, new { @class = "navbar-brand" })
+        </li>
+    </ul>
+}
