@@ -20,18 +20,16 @@
 
 <script src="~/Scripts/fabric.js"></script>
 
-<div id="target">
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
    
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
        
-        <div id="canvas-container">
-            <canvas id="canvas"></canvas>
-        </div>
-        <div style="min-height:100%">
-
+        
+        <div class="form-horizontal">
+            <div class="col-md-3">
             <div class="form-group ">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -39,7 +37,6 @@
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <hr />
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Str1, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -56,49 +53,47 @@
                     @Html.ValidationMessageFor(model => model.Str2, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-
-
-            <form id="fileUpload" action="@Url.Action("AddImage")" method="POST" enctype="multipart/form-data">
-
-                <input id="fileInput" type="file" class="btn btn-default" />
-                <input type="button" value="Upload file" class="btn btn-success" id="btnFileUpload" />
-            </form>
-
-            @Html.EditorFor(model => model.Url_Img, new { htmlAttributes = new { @class = "form-control", id = "Url_Img", type = "hidden" } })
-            @Html.EditorFor(model => model.Url_Img_Origin, new { htmlAttributes = new { @class = "form-control", id = "Url_Img_Origin", type = "hidden" } })
-            @Html.EditorFor(model => model.JSON, new { htmlAttributes = new { @class = "form-control", id = "JSON", type = "hidden" } })
-
+                </div>
             <div class="form-group">
-                <p>Tags: </p> <input type="text" id="newtag" name="newtag" active="false" class="form-control" />
-                <div class="col-md-10">
+                <form id="fileUpload" action="@Url.Action("AddImage")" method="POST" >
+                    <input id="fileInput" type="file" class="btn btn-default" accept="image/x-png, image/gif, image/jpeg" />
+                    <input type="button" value="Upload file" class="btn btn-success" id="btnFileUpload" />
+                </form>
+            </div>
+           
+            <div class="form-group">
+                <p>Tags: </p> 
+                <div>
+                    <input type="text" id="newtag" name="newtag" readonly="readonly" class="form-control col-md-5" />
+                </div>
+                <div class="btn-group">
+                    <input type="text" id="Tag" class="form-control col-md-2" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Demotivators")' />
 
-                    <input type="text" id="Tag" class="form-control" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Demotivators")' />
-                    <input type="button"  value="AddTag" class="btn btn-default" id="AddTag" />
-
+                    
+                    <input type="button" value="AddTag" class="btn btn-default" id="AddTag" />
                 </div>
             </div>
             
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" id="create" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="button" value="Preview" id="textin" class="btn btn-default" />
-                </div>
-            </div>
             <div class="btn-group" role="group" aria-label="...">
                 <button type="button" class="btn btn-default active" id="Hpattern">Vertical</button>
                 <button type="button" class="btn btn-default" id="Wpattern">Horizontal</button>
             </div>
+            <div class="btn-group">
+                <div >
+                    <input type="submit" value="Create" class="btn btn-default" id="create"  disabled="disabled"/>
+                </div>
+            </div>
+            @Html.EditorFor(model => model.Url_Img, new { htmlAttributes = new { @class = "form-control", id = "Url_Img", type = "hidden" } })
+            @Html.EditorFor(model => model.Url_Img_Origin, new { htmlAttributes = new { @class = "form-control", id = "Url_Img_Origin", type = "hidden" } })
+            @Html.EditorFor(model => model.JSON, new { htmlAttributes = new { @class = "form-control", id = "JSON", type = "hidden" } })
 
+        </div>
+        <div id="canvas-container">
+            <canvas id="canvas"></canvas>
         </div>
 }
 
-</div>
+
 
 
 

@@ -193,6 +193,7 @@ document.getElementById('create').onclick = ->
 $('#btnFileUpload').click ->
   fileIMG = document.getElementById('fileInput').files[0]
   url = URL.createObjectURL(fileIMG)
+  document.getElementById('create').disabled = false
   fabric.Image.fromURL url, (oImg) ->
     scaleX:  oImg.width = sizeImgW
     scaleY:  oImg.height = sizeImgH
